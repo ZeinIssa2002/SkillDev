@@ -1,0 +1,136 @@
+body {
+    height: 800px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(#29127b, #390673,#4d047e,#500470,#360a52);
+}
+  
+ .main {   
+     top: 114px;
+    left: 506px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+   background-color: #1a1a1a;
+   width:500px;
+  max-height: 530px;
+  overflow: hidden;
+  border-radius: 123px;
+  box-shadow: 7px 7px 10px 3px #24004628;
+}
+.input:valid:hover {
+  background: linear-gradient(144deg, #1e1e1e , 20%,#1e1e1e 50%,#1e1e1e );
+}
+.input:focus:hover {
+  background: linear-gradient(144deg, #1e1e1e , 20%,#1e1e1e 50%,#1e1e1e );
+}
+.form {background: linear-gradient(144deg, #1e1e1e , 20%,#1e1e1e 50%,#1e1e1e );
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 9px;
+}
+
+/*checkbox to switch from sign up to login*/
+#chk {
+  display: none;
+}
+
+/*Login*/
+.login {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.login label {
+  margin: 24% 0 5%;
+}
+
+label {
+  color: #fff;
+  font-size: 2rem;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  color:#fff;
+  transition: .5s ease-in-out;
+}
+
+.input {
+  color: white;
+  width: 100%;
+  height: 40px;
+  
+    background: linear-gradient(144deg, #1e1e1e , 20%,#1e1e1e 50%,#1e1e1e );
+
+  padding: 10px;
+  border: none;
+  outline: none;
+  
+  background: linear-gradient(144deg, #1e1e1e , 20%,#1e1e1e 50%,#1e1e1e );
+  
+  border-radius: 4px;
+}
+
+/*Register*/
+.register {
+  background: #eee;
+  
+  transform: translateY(5%);
+  transition: .8s ease-in-out;
+}
+
+
+.register label{
+  color: #fff;
+  transform: scale(.6);
+}
+.register:hover label {
+  color: #ff69b4;
+  transition: color .8s ease-in-out;
+}
+#chk:checked ~ .register {
+  transform: translateY(-60%);
+}
+
+#chk:checked ~ .register label {
+  transform: scale(1);
+  margin: 10% 0 5%;
+}
+
+#chk:checked ~ .login label {
+  transform: scale(.6);
+  margin: 5% 0 5%;
+}   
+/*Button*/
+.form button {
+  width: 56%;
+  height: 40px;
+  margin: 12px auto 10%;
+  color: #fff;
+   background: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 102px;
+  cursor: pointer;
+  transition: .2s ease-in;
+}
+
+.form button:hover {
+ background: linear-gradient(144deg, #1e1e1e , 20%,#1e1e1e 50%,#1e1e1e );
+}
+/*... */
+
+label.Edit {
+  cursor: default;
+  font-weight: normal;
+  color: #fff;
+}
+
+label.Edit:hover {
+  color: #fff;
+}

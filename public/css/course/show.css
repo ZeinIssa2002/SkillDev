@@ -1,0 +1,359 @@
+        /* General Styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Roboto', sans-serif;
+            color: #2c3e50;
+        }
+
+        a {
+            text-decoration: none;
+            color: #3498db;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        /* Menu Icon */
+        .menu-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: 20px;
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        .menu-icon:hover {
+            color: #f1c40f;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .dropdown-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dropdown-menu ul li {
+            padding: 10px 20px;
+        }
+
+        .dropdown-menu ul li a {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .dropdown-menu ul li a:hover {
+            color: #3498db;
+        }
+
+
+        /* Search Form */
+        .search-form {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 25px;
+            padding: 5px 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-form input {
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            padding: 10px;
+            width: 200px;
+            background: transparent;
+        }
+
+        .search-form input::placeholder {
+            color: #999;
+        }
+
+        .search-form button {
+            background: none;
+            border: none;
+            color: #3498db;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .search-form button:hover {
+            color: #2980b9;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .course-details {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .course-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .course-content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .rating {
+            display: flex;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .star {
+            font-size: 30px;
+            color: #ddd;
+            transition: color 0.3s ease;
+        }
+
+        .star.selected {
+            color: #ffd700;
+        }
+
+        .average-rating {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #2c3e50;
+        }
+
+        .average-rating span {
+            font-weight: 600;
+            color: #e67e22;
+        }
+
+        .comments-section {
+            margin-top: 40px;
+        }
+
+        .comments-section h3 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .comment {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #3498db;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .comment:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-content {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .comment-content strong {
+            color: #3498db;
+            font-weight: 600;
+        }
+
+        .comment-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .comment-actions button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .comment-actions button:hover {
+            color: #3498db;
+        }
+
+        .reply-box {
+            margin-top: 15px;
+            display: none;
+        }
+
+        .reply-box textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            margin-bottom: 10px;
+            resize: none;
+        }
+
+        .reply-box button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .reply-box button:hover {
+            background-color: #2980b9;
+        }
+
+        .replies {
+            margin-top: 20px;
+            padding-left: 20px;
+            border-left: 3px solid #3498db;
+        }
+
+        .reply {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .reply:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .reply-content {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .reply-content strong {
+            color: #3498db;
+            font-weight: 600;
+        }
+
+        .reply-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .reply-actions button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .reply-actions button:hover {
+            color: #3498db;
+        }
+
+        .comment-form {
+            margin-bottom: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            margin-bottom: 15px;
+            resize: none;
+        }
+
+        .comment-form button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .comment-form button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Animation for stars */
+        @keyframes star-pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .star.selected {
+            animation: star-pop 0.3s ease;
+        }

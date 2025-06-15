@@ -1,0 +1,136 @@
+        /* إضافة خلفية مميزة */
+        body {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* تصميم الواجهة */
+        .form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* توسيط العناصر أفقيًا */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form .title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .form .message {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        /* تصميم الحقول */
+        .form .input {
+            width: 90%; /* تقليل العرض قليلاً لتجنب التلامس مع الحواف */
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+            background-color: white;
+            color: #333;
+            text-align: left; /* النص داخل الحقل يبدأ من اليسار */
+        }
+
+        .form .input:focus {
+            border-color: #6a11cb;
+        }
+
+        .form label {
+            width: 100%; /* جعل العلامة تأخذ العرض الكامل */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* توسيط العناصر داخل العلامة */
+        }
+
+        .form label span {
+            display: block;
+            margin-bottom: 0.5rem; /* نقل النص إلى الأعلى */
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* تصميم الأزرار */
+        .form .submit {
+            background-color: #6a11cb;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .form .submit:hover {
+            background-color: #2575fc;
+        }
+
+        /* تصميم رسائل الخطأ */
+        .error-messages {
+            color: red;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .error-messages ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* تصميم رابط التسجيل */
+        .signup {
+            font-size: 0.875rem;
+            color: #666;
+            margin-top: 1rem;
+        }
+
+        .signup a {
+            color: #6a11cb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .signup a:hover {
+            color: #2575fc;
+        }
+
+        /* إضافة بعض التأثيرات الإضافية */
+        .form .input::placeholder {
+            color: #999;
+        }
+
+        .form .input:focus::placeholder {
+            color: transparent;
+        }
+
+        .form .submit:active {
+            transform: scale(0.98);
+        }
