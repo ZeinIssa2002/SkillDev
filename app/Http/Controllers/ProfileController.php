@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Storage;
 class ProfileController extends Controller
 {
 
-// El método checkUser ha sido reemplazado por el middleware UserMiddleware
+
     // صفحة البرايفيسي
     public function edit()
     {
@@ -150,7 +150,7 @@ public function profileshowdisplay($profile_id)
     $profile = Profile::where('profile_id', $profile_id)->firstOrFail();
     $account = $profile->account;
 
-    // تحديد إذا كان الحساب لمدرس أو مستخدم عادي
+ 
     $isInstructor = ($account->account_type === 'instructor');
     
     if ($isInstructor) {
@@ -266,7 +266,7 @@ public function updateWorkHours(Request $request)
         'workhours' => 'required|string|max:255'
     ]);
 
-    // Update instructor work hours
+ 
     $instructor = Instructor::where('account_id', auth()->id())->first();
     $instructor->workhours = $request->workhours;
     $instructor->save();

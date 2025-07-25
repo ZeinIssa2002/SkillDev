@@ -64,8 +64,8 @@
         @endif
 
         <label>
-            <span>Username</span>
-            <input class="input" type="text" name="username" placeholder="Username" value="{{ old('username') }}" maxlength="40" required>
+            <span>Email</span>
+            <input class="input" type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
         </label>
 
         <label>

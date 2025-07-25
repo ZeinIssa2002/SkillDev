@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Auth;
 
 class FriendController extends Controller
 {
-    // El método checkInstructorOrUser ha sido reemplazado por el middleware InstructorOrUserMiddleware
+
     public function sendRequest($id)
     {
         $receiver = Account::findOrFail($id);
 
-        // تأكد من أن الحسابين ليسا متشابهين
+  
         if (auth()->id() == $receiver->id) {
             return redirect()->back()->with('error', 'لا يمكن إرسال طلب صداقة لنفسك.');
         }
 
-        // تحقق من وجود طلب صداقة مسبق بين المستخدمين
+
         $existingRequest = FriendRequest::where(function($query) use ($receiver) {
             $query->where('sender_id', auth()->id())
                   ->where('receiver_id', $receiver->id);
@@ -42,7 +42,7 @@ class FriendController extends Controller
             }
         }
 
-        // إنشاء طلب صداقة جديد
+
         FriendRequest::create([
             'sender_id' => auth()->id(),
             'receiver_id' => $receiver->id,
@@ -99,7 +99,7 @@ class FriendController extends Controller
     {
 
 
-        // الحصول على جميع طلبات الصداقة المقبولة حيث المستخدم هو المرسل أو المستقبل
+
         $friends = FriendRequest::where(function($query) {
             $query->where('sender_id', auth()->id())
                   ->orWhere('receiver_id', auth()->id());
@@ -108,7 +108,7 @@ class FriendController extends Controller
         ->with(['sender', 'receiver'])
         ->get()
         ->map(function($request) {
-            // تحديد من هو الصديق (الطرف الآخر غير المستخدم الحالي)
+        
             return $request->sender_id == auth()->id() ? $request->receiver : $request->sender;
         });
     
@@ -116,7 +116,7 @@ class FriendController extends Controller
     }
     public function removeFriend($id)
 {
-    // البحث عن طلب الصداقة بين المستخدم الحالي والصديق المراد إزالته
+
     $friendship = FriendRequest::where(function($query) use ($id) {
         $query->where('sender_id', auth()->id())
               ->where('receiver_id', $id)

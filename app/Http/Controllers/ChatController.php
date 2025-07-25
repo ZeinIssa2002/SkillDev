@@ -10,13 +10,12 @@ use Pusher\Pusher;
 use Illuminate\Support\Facades\Log;
 class ChatController extends Controller
 {
-    // El método checkguest ha sido reemplazado por el middleware GuestMiddleware
+
     public function index($id)
     {
         $receiver = Account::findOrFail($id);
         $sender = Auth::user();
     
-        // Get messages between users
         $messages = Message::whereIn('sender_id', [$sender->id, $receiver->id])
             ->whereIn('receiver_id', [$sender->id, $receiver->id])
             ->orderBy('created_at')
@@ -39,7 +38,7 @@ class ChatController extends Controller
             'is_read' => false,
         ]);
     
-        // Send event to Pusher
+
         $pusher = new Pusher(
             env('PUSHER_APP_KEY'),
             env('PUSHER_APP_SECRET'),
@@ -70,7 +69,7 @@ class ChatController extends Controller
 
         $message = Message::findOrFail($request->message_id);
 
-        // Check if the authenticated user is the sender
+
         if ($message->sender_id !== Auth::id()) {
             return response()->json(['success' => false, 'error' => 'Unauthorized'], 403);
         }
@@ -79,7 +78,7 @@ class ChatController extends Controller
             'message' => $request->message,
         ]);
 
-        // Send update event to Pusher
+
         $pusher = new Pusher(env('PUSHER_APP_KEY'), env('PUSHER_APP_SECRET'), env('PUSHER_APP_ID'), [
             'cluster' => env('PUSHER_APP_CLUSTER'),
             'useTLS' => true,
@@ -100,7 +99,7 @@ class ChatController extends Controller
 
         $message = Message::findOrFail($request->message_id);
 
-        // Check if the authenticated user is the sender
+
         if ($message->sender_id !== Auth::id()) {
             return response()->json(['success' => false, 'error' => 'Unauthorized'], 403);
         }
@@ -108,7 +107,7 @@ class ChatController extends Controller
         $messageId = $message->id;
         $message->delete();
 
-        // Send delete event to Pusher
+
         $pusher = new Pusher(env('PUSHER_APP_KEY'), env('PUSHER_APP_SECRET'), env('PUSHER_APP_ID'), [
             'cluster' => env('PUSHER_APP_CLUSTER'),
             'useTLS' => true,
@@ -121,21 +120,22 @@ class ChatController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function getMessages($id)
+    public function getMessages($id) //Admin Chat panel 
     {
         $receiver = Account::findOrFail($id);
         $sender = Auth::user();
     
-        // Get messages between users
+
         $messages = Message::whereIn('sender_id', [$sender->id, $receiver->id])
             ->whereIn('receiver_id', [$sender->id, $receiver->id])
             ->orderBy('created_at')
             ->get();
         
-        // Mark messages as read when admin opens the chat
+
         Message::where('receiver_id', $sender->id)
             ->where('sender_id', $receiver->id)
             ->where('is_read', false)
+
             ->update(['is_read' => true]);
     
         return response()->json(['messages' => $messages]);
@@ -148,10 +148,10 @@ class ChatController extends Controller
     ]);
 
     try {
-        // Store the image
+
         $imagePath = $request->file('image')->store('chat_images', 'public');
         
-        // Create message
+
         $message = Message::create([
             'sender_id' => Auth::id(),
             'receiver_id' => $request->receiver_id,
@@ -159,7 +159,7 @@ class ChatController extends Controller
             'is_read' => false,
         ]);
 
-        // Broadcast event
+ 
         $pusher = new Pusher(
             env('PUSHER_APP_KEY'),
             env('PUSHER_APP_SECRET'),
@@ -196,13 +196,13 @@ public function sendFile(Request $request)
     ]);
 
     try {
-        // تخزين الملف
+
         $filePath = $request->file('file')->store('chat_files', 'public');
         $fileUrl = asset('storage/' . $filePath);
         $fileName = $request->file('file')->getClientOriginalName();
         $fileSize = $request->file('file')->getSize();
 
-        // إنشاء الرسالة
+
         $message = Message::create([
             'sender_id' => Auth::id(),
             'receiver_id' => $request->receiver_id,
@@ -210,7 +210,7 @@ public function sendFile(Request $request)
             'is_read' => false,
         ]);
 
-        // بث الحدث باستخدام Pusher
+
         $pusher = new Pusher(
             env('PUSHER_APP_KEY'),
             env('PUSHER_APP_SECRET'),
@@ -242,7 +242,7 @@ public function sendFile(Request $request)
 }
     public function adminindex()
     {
-        // الحصول على المستخدمين الذين تواصلوا مع المدير
+
         $users = Account::whereHas('sentMessages', function($query) {
                 $query->where('receiver_id', Auth::id());
             })

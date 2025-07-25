@@ -60,17 +60,29 @@
             --danger: #f72585;
             --warning: #f8961e;
             --border-radius: 12px;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
             --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
         }
         
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             color: var(--dark);
             background-color: #f5f7ff;
             line-height: 1.6;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overscroll-behavior-y: contain;
         }
         
         /* Header Styles */
@@ -135,14 +147,16 @@
         
         /* Hero Section */
         .course-hero {
-            min-height: 300px;
+            position: relative;
+            padding: 5rem 0;
+            color: white;
+            overflow: hidden;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            will-change: transform;
+            min-height: 400px;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 4rem 0;
-            position: relative;
-            overflow: hidden;
         }
         
         .course-hero::before {
@@ -188,6 +202,274 @@
             background: linear-gradient(45deg, #dc3545, #c71f37) !important;
         }
         
+        /* Test Questions Styling */
+        .test-container {
+            margin: 2.5rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .test-container h4 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f2f5;
+            font-weight: 700;
+        }
+        
+        .question {
+            margin-bottom: 2.5rem;
+            padding: 1.8rem;
+            background: #f9fafc;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .question:hover {
+            background: #f0f7ff;
+            border-color: #d0e3ff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .question p.fw-bold {
+            font-size: 1.25rem;
+            color: #2c3e50;
+            margin-bottom: 1.8rem;
+            line-height: 1.6;
+            font-weight: 600 !important;
+        }
+        
+        /* ===========================================
+           Test Container Styling
+           =========================================== */
+        .test-container {
+            margin: 2.5rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .test-container h4 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f2f5;
+            font-weight: 700;
+        }
+        
+        .test-container .question {
+            margin-bottom: 2.5rem;
+            padding: 1.8rem;
+            background: #f9fafc;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .test-container .question:hover {
+            background: #f0f7ff;
+            border-color: #d0e3ff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .test-container .question p.fw-bold {
+            font-size: 1.25rem;
+            color: #2c3e50;
+            margin-bottom: 1.8rem;
+            line-height: 1.6;
+            font-weight: 600 !important;
+        }
+        
+        .test-container .form-check {
+            margin-bottom: 1.2rem;
+            padding: 1rem 1.2rem;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid #e1e4e8;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            min-height: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .test-container .form-check:hover {
+            border-color: var(--primary);
+            background-color: #f8faff;
+            transform: translateX(5px);
+        }
+        
+        .test-container .custom-radio {
+            display: inline-block;
+            width: 1.4rem;
+            height: 1.4rem;
+            min-width: 1.4rem;
+            border: 2px solid #ced4da;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        
+        .test-container .form-check-input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .test-container .form-check-input:checked + .form-check-label .custom-radio {
+            border-color: var(--primary);
+            background-color: var(--primary);
+        }
+        
+        .test-container .form-check-input:checked + .form-check-label .custom-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0.7rem;
+            height: 0.7rem;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        .test-container .form-check-label {
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+            font-size: 1.1rem;
+            color: #3d4d65;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+        }
+        
+        .test-container .form-check-label span.d-flex {
+            width: 100%;
+        }
+        
+        /* ===========================================
+           General Form Radio Buttons (Outside of Test Container)
+           =========================================== */
+        .form-check:not(.test-container .form-check) {
+            margin-bottom: 0.8rem;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .form-check:not(.test-container .form-check) .form-check-input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ced4da;
+            border-radius: 50%;
+            margin: 0 12px 0 0;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        
+        .form-check:not(.test-container .form-check) .form-check-input[type="radio"]:checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .form-check:not(.test-container .form-check) .form-check-input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .form-check:not(.test-container .form-check) .form-check-label {
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            font-size: 1rem;
+            color: #333;
+        }
+        
+        .form-check-input:not([type="radio"]) {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            opacity: 0;
+            position: absolute;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .form-check-label {
+            font-size: 1.1rem;
+            color: #3d4d65;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            line-height: 1.5;
+            flex: 1;
+        }
+        
+        .btn-submit-test {
+            padding: 1rem 2.5rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+            border-radius: 8px;
+            background: var(--primary);
+            border: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 1.5rem;
+        }
+        
+        .btn-submit-test:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
+            background: var(--primary-dark);
+        }
+        
+        /* Correct answer styling */
+        .form-check.correct-answer {
+            background-color: #e8f5e9;
+            border-color: #a5d6a7;
+        }
+        
+        .form-check.incorrect-answer {
+            background-color: #ffebee;
+            border-color: #ef9a9a;
+        }
+        
         .course-preview {
             font-size: 1.2rem;
             opacity: 0.9;
@@ -197,9 +479,28 @@
         
         /* Main Content Container */
         /* Full width container */
+        .levels-full-width {
+            width: 100%;
+            background: #f8f9fa;
+            padding: 2rem 0;
+            margin: 0;
+        }
+        
+        .course-card.p-0 {
+            padding: 0 !important;
+            box-shadow: none;
+            background: transparent;
+        }
+        
+        .course-content.p-0 {
+            padding: 0 !important;
+        }
+        
         .course-container {
             width: 100%;
-            margin: -4rem 0 0;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
             position: relative;
             z-index: 10;
             padding: 0; /* Remove padding as we'll handle it in inner elements */
@@ -215,9 +516,16 @@
         
         .course-card {
             background: white;
-            border-radius: 0;
-            box-shadow: var(--shadow-lg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
             overflow: hidden;
+            transition: var(--transition);
+            will-change: transform, box-shadow;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            -webkit-transform: translateZ(0);
+            -webkit-font-smoothing: subpixel-antialiased;
             transition: var(--transition);
             margin-bottom: 2rem;
             width: 100%;
@@ -226,7 +534,8 @@
         }
         
         .course-card:hover {
-            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
         
         /* Meta Section */
@@ -397,20 +706,76 @@
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
             margin: 2rem 0;
+            will-change: transform;
+            perspective: 1000px;
         }
         
         .media-item {
             border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
             transition: var(--transition);
-            cursor: pointer;
             position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            will-change: transform, box-shadow;
         }
         
-        .media-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
+        .btn:hover, button:hover, .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-2px) translateZ(0);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn:active, button:active, .btn-primary:active, .btn-secondary:active {
+            transform: translateY(1px) translateZ(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Smooth focus states */
+        button:focus, a:focus, input:focus, textarea:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3);
+            transition: box-shadow 0.2s ease;
+        }
+        
+        /* Smooth scrolling for anchor links */
+        @media (prefers-reduced-motion: no-preference) {
+            html {
+                scroll-behavior: smooth;
+            }
+        }
+        
+        /* Optimize image loading */
+        img:not([src]), img[data-src] {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        img.loaded {
+            opacity: 1;
+        }
+        
+        /* Smooth transitions for dropdowns */
+        .dropdown-menu {
+            transform-origin: top;
+            animation: fadeIn 0.2s var(--ease-out);
+            will-change: transform, opacity;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Smooth hover on cards */
+        .card, .media-item, .comment, .file-card {
+            transition: var(--transition);
+            will-change: transform, box-shadow;
+            backface-visibility: hidden;
+        }
+        
+        .card:hover, .media-item:hover, .comment:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
         
         .media-item img {
@@ -440,31 +805,144 @@
             opacity: 1;
         }
         
-        /* Video Container */
+        /* Modern Video Container */
         .video-container {
             position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
+            width: 100%;
+            max-width: 1000px;
+            margin: 2rem auto;
+            border-radius: 16px;
             overflow: hidden;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: #000;
+            transition: all 0.3s ease;
+        }
+        
+        .video-container:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
         
         .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
+            display: block;
+            cursor: pointer;
+        }
+        
+        /* Custom Video Controls */
+        .custom-video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .video-container:hover .custom-video-controls,
+        .video-container.playing .custom-video-controls {
+            opacity: 1;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
             height: 100%;
-            object-fit: cover;
+            background: var(--accent);
+            width: 0%;
+            border-radius: 2px;
+            transition: width 0.1s linear;
+        }
+        
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .left-controls, .right-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .control-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.2s, color 0.2s;
+        }
+        
+        .control-btn:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+        
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            outline: none;
+            opacity: 0;
+            transition: opacity 0.3s, width 0.3s;
+        }
+        
+        .volume-container:hover .volume-slider {
+            opacity: 1;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .time {
+            color: white;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .fullscreen-btn {
+            margin-left: 10px;
         }
         
         /* Levels Section */
         .levels-container {
-            padding: 6rem 5% 2rem;
             width: 100%;
+            margin: 0;
             max-width: 100%;
             box-sizing: border-box;
+            background: white;
+            padding: 2rem 0;
+            border-radius: 0;
         }
         
         .level-card {
@@ -472,14 +950,21 @@
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-sm);
             margin-bottom: 1.5rem;
+            transition: var(--transition);
+            will-change: transform, box-shadow;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            -webkit-transform: translateZ(0);
+            -webkit-font-smoothing: subpixel-antialiased;
             overflow: hidden;
             transition: var(--transition);
             border-left: 5px solid var(--gray);
         }
         
         .level-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: var(--shadow-lg);
         }
         
         .level-card.completed {
@@ -735,9 +1220,8 @@
         
         /* Share Button Styles */
         .share-floating-btn {
-            position: absolute;
-            top: 22px;
-            left: 22px;
+            position: relative;
+            display: inline-block;
             z-index: 101;
         }
         
@@ -760,7 +1244,8 @@
             display: none;
             position: absolute;
             left: 0;
-            top: 110%;
+            bottom: 100%;
+            margin-bottom: 5px;
             background: #fff;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -851,8 +1336,14 @@
         
         .file-card {
             height: 100%;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: var(--transition);
             border: 1px solid #e9ecef;
+            will-change: transform, box-shadow;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            -webkit-transform: translateZ(0);
+            -webkit-font-smoothing: subpixel-antialiased;
         }
         
         .file-card:hover {
@@ -944,52 +1435,69 @@
     <!-- Fixed position notifications container that overlays content -->
     <div id="notificationsOverlay" style="
         position: fixed;
-        top: 60px;
-        left: 0;
-        right: 0;
-        z-index: 1050;
+        top: 75px; /* Positioned below navbar */
+        right: 20px;
+        left: auto;
+        z-index: 999; /* Just below navbar's z-index */
         pointer-events: none;
+        max-width: 400px;
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
     ">
-        <div class="container" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
-            <!-- Toast container for dynamic notifications -->
-            <div id="toastContainer" style="pointer-events: auto;">
-                <!-- Dynamic toast notifications will be added here -->
-            </div>
+        <!-- Toast container for dynamic notifications -->
+        <div id="toastContainer" style="
+            pointer-events: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        ">
+            <!-- Dynamic toast notifications will be added here -->
+        </div>
             
             <!-- Alert messages -->
             @if(session('success'))
                 <div class="alert alert-success" style="
-                    padding: 15px;
-                    margin-bottom: 10px;
+                    padding: 15px 20px;
+                    margin: 0;
                     border: 1px solid #c3e6cb;
                     border-radius: 8px;
                     color: #155724;
                     background-color: #d4edda;
                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    text-align: center;
-                    width: 100%;
+                    text-align: right;
+                    width: auto;
+                    max-width: 100%;
                     pointer-events: auto;
                     animation: fadeInDown 0.3s ease-out;
+                    display: inline-block;
+                    margin-bottom: 10px;
                 ">
-                    <i class="fas fa-check-circle me-2"></i> {{ session('success') }}
+                    <div style="display: inline-flex; align-items: center;"><i class="fas fa-check-circle me-2"></i> {!! nl2br(e(session('success'))) !!}</div>
                 </div>
             @endif
             
             @if(session('error'))
                 <div class="alert alert-danger" style="
-                    padding: 15px;
-                    margin-bottom: 10px;
+                    padding: 15px 20px;
+                    margin: 0;
                     border: 1px solid #f5c6cb;
                     border-radius: 8px;
                     color: #721c24;
                     background-color: #f8d7da;
                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    text-align: center;
-                    width: 100%;
+                    text-align: right;
+                    width: auto;
+                    max-width: 100%;
                     pointer-events: auto;
                     animation: fadeInDown 0.3s ease-out;
+                    display: inline-block;
+                    margin-bottom: 10px;
                 ">
-                    <i class="fas fa-exclamation-circle me-2"></i> {{ session('error') }}
+                    <div style="display: inline-flex; align-items: center;"><i class="fas fa-exclamation-circle me-2"></i> {!! nl2br(e(session('error'))) !!}</div>
                 </div>
             @endif
         </div>
@@ -1037,7 +1545,7 @@
         
         <div class="container position-relative z-index-1 py-5">
             <h1 class="course-title text-white">{{ $course->title }}</h1>
-            <div class="difficulty-badge mb-3">
+            <div class="difficulty-badge mb-3 d-flex justify-content-center gap-2">
                 @php
                     $badgeClass = [
                         'beginner' => 'bg-success',
@@ -1055,6 +1563,12 @@
                     <i class="fas {{ $course->difficulty_level === 'beginner' ? 'fa-star-half-alt' : ($course->difficulty_level === 'intermediate' ? 'fa-star' : 'fa-stars') }} me-1"></i>
                     {{ $difficultyText }}
                 </span>
+                @if($course->category)
+                <span class="badge bg-info rounded-pill px-3 py-2">
+                    <i class="fas fa-tag me-1"></i>
+                    {{ $course->category->name }}
+                </span>
+                @endif
             </div>
             <p class="course-preview text-white-80">{{ $course->coursepreview }}</p>
             
@@ -1067,27 +1581,29 @@
             </div>
             
             @if ($isUser)
-            <div class="action-buttons">
+            <div class="action-buttons d-flex align-items-center gap-3">
                 <button class="action-btn favorite-btn" id="favoriteButton" data-course-id="{{ $course->id }}">
                     <i class="far fa-heart" id="favoriteIcon"></i>
                     <span id="favoriteText">Add to Favorites</span>
                 </button>
                 
-                <button class="action-btn apply-btn" id="applyButton" data-course-id="{{ $course->id }}">
-                    <i class="far fa-square" id="applyIcon"></i>
-                    <span id="applyText">Apply to Course</span>
-                </button>
-                
-                <div class="share-dropdown share-floating-btn">
-                    <button class="action-btn share-btn" id="quickShareBtn" title="Share this course">
-                        <i class="fas fa-paper-plane"></i>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="action-btn apply-btn" id="applyButton" data-course-id="{{ $course->id }}">
+                        <i class="far fa-square" id="applyIcon"></i>
+                        <span id="applyText">Apply to Course</span>
                     </button>
-                    <div id="shareDropdownMenu">
-                        <div class="d-flex flex-column gap-2">
-                            <a class="btn btn-success btn-sm w-100 text-start" target="_blank" id="shareWhatsapp"><i class="fab fa-whatsapp me-1"></i> WhatsApp</a>
-                            <a class="btn btn-info btn-sm w-100 text-start" target="_blank" id="shareTwitter"><i class="fab fa-twitter me-1"></i> Twitter</a>
-                            <a class="btn btn-primary btn-sm w-100 text-start" target="_blank" id="shareFacebook"><i class="fab fa-facebook me-1"></i> Facebook</a>
-                            <button type="button" class="btn btn-secondary btn-sm w-100 text-start" id="copyShareTextBtn"><i class="fas fa-copy me-1"></i> <span id="copyShareTextLabel">Copy Text</span></button>
+                    
+                    <div class="share-dropdown share-floating-btn">
+                        <button class="action-btn share-btn" id="quickShareBtn" title="Share this course">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                        <div id="shareDropdownMenu">
+                            <div class="d-flex flex-column gap-2">
+                                <a class="btn btn-success btn-sm w-100 text-start" target="_blank" id="shareWhatsapp"><i class="fab fa-whatsapp me-1"></i> WhatsApp</a>
+                                <a class="btn btn-info btn-sm w-100 text-start" target="_blank" id="shareTwitter"><i class="fab fa-twitter me-1"></i> Twitter</a>
+                                <a class="btn btn-primary btn-sm w-100 text-start" target="_blank" id="shareFacebook"><i class="fab fa-facebook me-1"></i> Facebook</a>
+                                <button type="button" class="btn btn-secondary btn-sm w-100 text-start" id="copyShareTextBtn"><i class="fas fa-copy me-1"></i> <span id="copyShareTextLabel">Copy Text</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1097,13 +1613,16 @@
     </section>
 
     <!-- Main Content -->
-    <div class="container course-container">
+    <div class="levels-full-width">
+        <div class="container-fluid">
+            <div class="course-container">
 
         <div class="course-card">
             <!-- Course Meta Section -->
             <div class="course-meta-section">
                 <!-- Rating Section -->
                 <div class="rating-container" style="width: 180px; padding: 1rem; border-radius: var(--border-radius); background: white; box-shadow: var(--shadow-sm);">
+                    <div style="text-align: center; font-weight: 600; margin-bottom: 0.5rem; font-size: 1.1rem;">Rating</div>
                     @if($isUser && $userProgress)
                         <div class="stars" data-user-rating="0" style="display: flex; justify-content: center; gap: 0.5rem; flex-wrap: nowrap; font-size: 1.8rem; line-height: 1; margin: 0 auto;">
                             @for ($i = 1; $i <= 5; $i++)
@@ -1306,12 +1825,44 @@
             <!-- Course Content Section -->
             <div class="course-content">
                 @if ($course->video)
-                <h2 class="section-title">Course Video</h2>
+                <div class="text-center mb-4">
+                    <h2 class="section-title">Course Preview</h2>
+                    <p class="text-muted">Watch the introduction to this course</p>
+                </div>
                 <div class="video-container mt-4">
-                    <video controls>
+                    <video id="courseVideo" poster="{{ $course->photo ? asset('storage/' . $course->photo) : '' }}" autoplay muted playsinline>
                         <source src="{{ asset('storage/' . $course->video) }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
+                    <div class="custom-video-controls">
+                        <div class="progress-container">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <div class="controls">
+                            <div class="left-controls">
+                                <button class="control-btn play-pause-btn" title="Play/Pause">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="volume-container">
+                                    <button class="control-btn volume-btn" title="Mute/Unmute">
+                                        <i class="fas fa-volume-up"></i>
+                                    </button>
+                                    <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="1">
+                                </div>
+                                <div class="time">
+                                    <span class="current-time">0:00</span> / <span class="duration">0:00</span>
+                                </div>
+                            </div>
+                            <div class="right-controls">
+                                <button class="control-btn settings-btn" title="Settings">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                                <button class="control-btn fullscreen-btn" title="Fullscreen">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 @endif
 
@@ -1324,6 +1875,42 @@
                     </div>
                     @endforeach
                 </div>
+                <style>
+                    .media-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                        gap: 2rem;
+                        margin: 2rem 0;
+                    }
+                    
+                    .media-item {
+                        border-radius: var(--border-radius);
+                        overflow: hidden;
+                        box-shadow: var(--shadow-sm);
+                        transition: all 0.3s ease;
+                        background: white;
+                        display: flex;
+                        flex-direction: column;
+                        height: 100%;
+                    }
+                    
+                    .media-item:hover {
+                        transform: translateY(-8px);
+                        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+                    }
+                    
+                    .media-item img {
+                        width: 100%;
+                        height: 350px;
+                        object-fit: cover;
+                        display: block;
+                        transition: transform 0.5s ease;
+                    }
+                    
+                    .media-item:hover img {
+                        transform: scale(1.03);
+                    }
+                </style>
                 @endif
 
                 <h2 class="section-title mt-5">Course Content</h2>
@@ -1342,9 +1929,9 @@
 @endphp
 
 @if($showFullContent || ($isUser && $courseApplied))
-        <div class="course-card">
-            <div class="course-content">
-                <div class="levels-container">
+            <div class="course-card p-0">
+                <div class="course-content p-0">
+                    <div class="levels-container w-100">
                     <h2 class="section-title">Course Curriculum</h2>
                     
                     @foreach($course->levels->sortBy('order') as $level)
@@ -1393,8 +1980,10 @@
                         <div class="level-content" id="level-content-{{ $level->order }}">
                             @if($level->text_contents)
                                 @foreach($level->text_contents as $text)
-                                <div class="content-text mb-4">
-                                    {!! nl2br(e($text)) !!}
+                                <div class="content-text mb-4 p-4 bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200">
+                                    <div class="text-gray-800 leading-relaxed">
+                                        {!! nl2br(e($text)) !!}
+                                    </div>
                                 </div>
                                 @endforeach
                             @endif
@@ -1435,22 +2024,25 @@
                                     <input type="hidden" name="level_id" value="{{ $level->id }}">
                                     @foreach($level->questions as $index => $question)
                                         <div class="question">
-                                            <p class="fw-bold">Question {{ $index + 1 }}: {{ $question->question_text }}</p>
-                                            @foreach($question->options as $key => $option)
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" 
-                                                           name="answers[{{ $question->id }}]" 
-                                                           id="q{{ $question->id }}_option{{ $key }}" 
-                                                           value="{{ $key }}">
-                                                    <label class="form-check-label" for="q{{ $question->id }}_option{{ $key }}">
-                                                        {{ $option }}
-                                                    </label>
-                                                </div>
-                                            @endforeach
+                                    <p class="fw-bold">Question {{ $index + 1 }}: {{ $question->question_text }}</p>
+                                    @foreach($question->options as $key => $option)
+                                        <div class="form-check position-relative">
+                                            <input class="form-check-input position-absolute top-0 start-0 w-100 h-100 opacity-0 z-1" type="radio" 
+                                                   name="answers[{{ $question->id }}]" 
+                                                   id="q{{ $question->id }}_option{{ $key }}" 
+                                                   value="{{ $key }}">
+                                            <label class="form-check-label w-100 position-relative z-0" for="q{{ $question->id }}_option{{ $key }}">
+                                                <span class="d-flex align-items-center">
+                                                    <span class="custom-radio me-3"></span>
+                                                    <span>{{ $option }}</span>
+                                                </span>
+                                            </label>
                                         </div>
                                     @endforeach
+                                </div>
+                                    @endforeach
                                     <div class="text-center mt-4">
-                                        <button type="submit" class="btn btn-success">
+                                        <button type="submit" class="btn btn-success btn-submit-test">
                                             <i class="fas fa-paper-plane me-2"></i> Submit Answers
                                         </button>
                                     </div>
@@ -1586,9 +2178,7 @@
                     <div class="mb-2" dir="ltr">
                         <strong><i class="fas fa-info-circle me-2"></i> Important:</strong> You need to apply to this course to access the Course Curriculum. Click the "Apply to Course" button above to unlock all course materials.
                     </div>
-                    <div class="mt-2" dir="rtl" style="text-align: right;">
-                        <strong><i class="fas fa-info-circle me-2"></i> هام:</strong> يجب عليك التسجيل في هذا الكورس للوصول إلى محتوى الكورس. انقر على زر "Apply to Course" أعلاه لفتح جميع مواد الكورس.
-                    </div>
+
                 </div>
                 <button class="btn btn-primary btn-lg" onclick="document.getElementById('applyButton').click()">
                     <i class="fas fa-unlock me-2"></i> Apply Now
@@ -1616,13 +2206,71 @@
             </div>
             @endif
 
+            <style>
+                .comment-author {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 0.5rem;
+                }
+                .comment-author.self {
+                    color: #0d6efd;
+                    font-weight: 500;
+                }
+                .comment-avatar {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                    object-fit: cover;
+                }
+                .comment {
+                    position: relative;
+                    margin-bottom: 1.5rem;
+                    padding: 1rem;
+                    background: #f8f9fa;
+                    border-radius: 8px;
+                }
+                .comment-content {
+                    margin-left: 42px;
+                }
+                .replies {
+                    margin-left: 2rem;
+                    margin-top: 1rem;
+                    padding-left: 1rem;
+                    border-left: 2px solid #dee2e6;
+                }
+                .comment-actions {
+                    margin-top: 0.5rem;
+                    font-size: 0.85rem;
+                }
+                .action-link {
+                    margin-right: 1rem;
+                    cursor: pointer;
+                    color: #6c757d;
+                }
+                .action-link:hover {
+                    color: #0d6efd;
+                }
+            </style>
+
             <div class="comments-list">
                 @foreach ($course->comments as $comment)
                     @if ($comment->parent_id == null)
                         <div class="comment" id="comment-{{ $comment->id }}">
-                            <div class="comment-author">
-                                <i class="fas fa-user-circle me-2"></i>
-                                {{ $comment->account->username ?? 'Unknown User' }}
+                            <div class="comment-author {{ Auth::check() && Auth::id() === $comment->account_id ? 'self' : '' }}">
+                                @php
+                                    $avatarUrl = 'https://ui-avatars.com/api/?name=' . urlencode($comment->account->username ?? 'U') . '&background=random';
+                                    if ($comment->account && $comment->account->profile && $comment->account->profile->photo) {
+                                        $avatarUrl = asset('storage/' . $comment->account->profile->photo);
+                                    }
+                                @endphp
+                                <img src="{{ $avatarUrl }}" alt="{{ $comment->account->username ?? 'User' }}" class="comment-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=U&background=random';">
+                                <span>{{ $comment->account->username ?? 'Unknown User' }}</span>
+                                @if($comment->created_at)
+                                <span class="text-muted ms-2" style="font-size: 0.8rem">
+                                    {{ $comment->created_at->diffForHumans() }}
+                                </span>
+                                @endif
                             </div>
                             <div class="comment-content">
                                 <p class="comment-text" id="comment-text-{{ $comment->id }}">{{ $comment->comment }}</p>
@@ -1665,10 +2313,21 @@
                             @if ($comment->replies->count() > 0)
                                 <div class="replies">
                                     @foreach ($comment->replies as $reply)
-                                        <div class="comment" id="reply-{{ $reply->id }}">
-                                            <div class="comment-author">
-                                                <i class="fas fa-user-circle me-2"></i>
+                                        <div class="comment" id="reply-{{ $reply->id }}" style="margin-top: 1rem; padding: 0.75rem;">
+                                            <div class="comment-author {{ Auth::check() && Auth::id() === $reply->account_id ? 'self' : '' }}">
+                                                @php
+                                                    $replyAvatarUrl = 'https://ui-avatars.com/api/?name=' . urlencode($reply->account->username ?? 'U') . '&background=random';
+                                                    if ($reply->account && $reply->account->profile && $reply->account->profile->photo) {
+                                                        $replyAvatarUrl = asset('storage/' . $reply->account->profile->photo);
+                                                    }
+                                                @endphp
+                                                <img src="{{ $replyAvatarUrl }}" alt="{{ $reply->account->username ?? 'User' }}" class="comment-avatar" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=U&background=random';">
                                                 {{ $reply->account->username ?? 'Unknown User' }}
+                                                @if($reply->created_at)
+                                                <span class="text-muted ms-2" style="font-size: 0.8rem">
+                                                    {{ $reply->created_at->diffForHumans() }}
+                                                </span>
+                                                @endif
                                             </div>
                                             <div class="comment-content">
                                                 <p class="comment-text" id="reply-text-{{ $reply->id }}">{{ $reply->comment }}</p>
@@ -1701,6 +2360,7 @@
                 @endforeach
             </div>
         </div>
+        </div>
     </div>
 
     <!-- Image Modal -->
@@ -1722,8 +2382,220 @@
     
     <!-- Main JavaScript -->
     <script>
-        // Initialize share functionality
+        // Lazy load images
         document.addEventListener('DOMContentLoaded', function() {
+            // Lazy load images
+            const lazyImages = [].slice.call(document.querySelectorAll('img[data-src]'));
+            
+            if ('IntersectionObserver' in window) {
+                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            let lazyImage = entry.target;
+                            lazyImage.src = lazyImage.dataset.src;
+                            lazyImage.classList.add('loaded');
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
+                });
+
+                lazyImages.forEach(function(lazyImage) {
+                    lazyImageObserver.observe(lazyImage);
+                });
+            } else {
+                // Fallback for browsers that don't support IntersectionObserver
+                lazyImages.forEach(function(lazyImage) {
+                    lazyImage.src = lazyImage.dataset.src;
+                    lazyImage.classList.add('loaded');
+                });
+            }
+            
+            // Add smooth scroll to anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Custom Video Player Functionality
+            const video = document.getElementById('courseVideo');
+            if (video) {
+                // Start playing the video automatically
+                const playPromise = video.play();
+                
+                // In case autoplay was prevented
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        // Auto-play was prevented, show the play button
+                        video.muted = true;
+                        video.play().catch(e => {
+                            console.log('Autoplay prevented with sound. Trying muted...');
+                        });
+                    });
+                }
+                const playPauseBtn = document.querySelector('.play-pause-btn');
+                const volumeBtn = document.querySelector('.volume-btn');
+                const volumeSlider = document.querySelector('.volume-slider');
+                const progressBar = document.querySelector('.progress-bar');
+                const progressContainer = document.querySelector('.progress-container');
+                const currentTimeEl = document.querySelector('.current-time');
+                const durationEl = document.querySelector('.duration');
+                const fullscreenBtn = document.querySelector('.fullscreen-btn');
+                const videoContainer = document.querySelector('.video-container');
+                
+                // Format time in seconds to MM:SS
+                function formatTime(seconds) {
+                    const minutes = Math.floor(seconds / 60);
+                    seconds = Math.floor(seconds % 60);
+                    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                }
+                
+                // Update video duration
+                video.addEventListener('loadedmetadata', () => {
+                    durationEl.textContent = formatTime(video.duration);
+                });
+                
+                // Update progress bar
+                video.addEventListener('timeupdate', () => {
+                    const progress = (video.currentTime / video.duration) * 100;
+                    progressBar.style.width = `${progress}%`;
+                    currentTimeEl.textContent = formatTime(video.currentTime);
+                });
+                
+                // Click on progress bar to seek
+                progressContainer.addEventListener('click', (e) => {
+                    const rect = progressContainer.getBoundingClientRect();
+                    const pos = (e.pageX - rect.left) / progressContainer.offsetWidth;
+                    video.currentTime = pos * video.duration;
+                });
+                
+                // Play/Pause
+                playPauseBtn.addEventListener('click', () => {
+                    if (video.paused) {
+                        video.play();
+                        videoContainer.classList.add('playing');
+                        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    } else {
+                        video.pause();
+                        videoContainer.classList.remove('playing');
+                        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    }
+                });
+                
+                // Volume control
+                volumeBtn.addEventListener('click', () => {
+                    if (video.volume > 0) {
+                        video.volume = 0;
+                        volumeSlider.value = 0;
+                        volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    } else {
+                        video.volume = 1;
+                        volumeSlider.value = 1;
+                        volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    }
+                });
+                
+                volumeSlider.addEventListener('input', (e) => {
+                    video.volume = e.target.value;
+                    if (video.volume > 0.5) {
+                        volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    } else if (video.volume > 0) {
+                        volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+                    } else {
+                        volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    }
+                });
+                
+                // Fullscreen
+                fullscreenBtn.addEventListener('click', () => {
+                    if (!document.fullscreenElement) {
+                        videoContainer.requestFullscreen().catch(err => {
+                            console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                        });
+                        fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                    } else {
+                        document.exitFullscreen();
+                        fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                    }
+                });
+                
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+                    
+                    switch(e.key.toLowerCase()) {
+                        case ' ':
+                        case 'k':
+                            e.preventDefault();
+                            if (video.paused) {
+                                video.play();
+                                videoContainer.classList.add('playing');
+                                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                            } else {
+                                video.pause();
+                                videoContainer.classList.remove('playing');
+                                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                            }
+                            break;
+                        case 'm':
+                            e.preventDefault();
+                            if (video.volume > 0) {
+                                video.volume = 0;
+                                volumeSlider.value = 0;
+                                volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                            } else {
+                                video.volume = 1;
+                                volumeSlider.value = 1;
+                                volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                            }
+                            break;
+                        case 'arrowleft':
+                            e.preventDefault();
+                            video.currentTime = Math.max(0, video.currentTime - 5);
+                            break;
+                        case 'arrowright':
+                            e.preventDefault();
+                            video.currentTime = Math.min(video.duration, video.currentTime + 5);
+                            break;
+                        case 'f':
+                            e.preventDefault();
+                            if (!document.fullscreenElement) {
+                                videoContainer.requestFullscreen();
+                                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                            } else {
+                                document.exitFullscreen();
+                                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                            }
+                            break;
+                    }
+                });
+                
+                // Show/hide controls on mousemove
+                let timeout;
+                videoContainer.addEventListener('mousemove', () => {
+                    videoContainer.classList.add('show-controls');
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => {
+                        if (!video.paused) {
+                            videoContainer.classList.remove('show-controls');
+                        }
+                    }, 3000);
+                });
+                
+                // Show controls when video is paused
+                video.addEventListener('pause', () => {
+                    videoContainer.classList.add('show-controls');
+                });
+            }
+            
+            // Initialize share functionality
             var quickShareBtn = document.getElementById('quickShareBtn');
             var dropdown = document.getElementById('shareDropdownMenu');
             var courseBaseUrl = window.location.origin + '/course/{{ $course->id }}';
@@ -2267,53 +3139,23 @@
             }
         }
         
-        // Auto-hide alerts after 3 seconds
+        // Initialize any necessary event listeners for alerts
         document.addEventListener('DOMContentLoaded', function() {
-            // Handle comment form submission
+            // Comment form submission handler
             const commentForm = document.querySelector('.comment-form');
             if (commentForm) {
                 commentForm.addEventListener('submit', function() {
-                    setTimeout(function() {
-                        const alerts = document.querySelectorAll('.alert');
-                        alerts.forEach(alert => {
-                            setTimeout(() => {
-                                alert.style.transition = 'opacity 0.5s';
-                                alert.style.opacity = '0';
-                                setTimeout(() => alert.remove(), 500);
-                            }, 3000);
-                        });
-                    }, 100);
+                    // No auto-hide for alerts
                 });
             }
             
-            // Handle reply form submissions
+            // Reply form submissions handler
             const replyForms = document.querySelectorAll('form[action*="/comments/reply/"]');
             replyForms.forEach(form => {
                 form.addEventListener('submit', function() {
-                    setTimeout(function() {
-                        const alerts = document.querySelectorAll('.alert');
-                        alerts.forEach(alert => {
-                            setTimeout(() => {
-                                alert.style.transition = 'opacity 0.5s';
-                                alert.style.opacity = '0';
-                                setTimeout(() => alert.remove(), 500);
-                            }, 3000);
-                        });
-                    }, 100);
+                    // No auto-hide for alerts
                 });
             });
-            
-            // Auto-hide any existing alerts after 3 seconds
-            setTimeout(() => {
-                const alerts = document.querySelectorAll('.alert:not(.permanent)');
-                alerts.forEach(alert => {
-                    setTimeout(() => {
-                        alert.style.transition = 'opacity 0.5s';
-                        alert.style.opacity = '0';
-                        setTimeout(() => alert.remove(), 500);
-                    }, 3000);
-                });
-            }, 100);
         });
 
         // Rating functionality
@@ -2433,7 +3275,7 @@ $(document).ready(function() {
         <div style="background-color: var(--primary); color: white; padding: 15px 20px; border-radius: 8px 8px 0 0; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1;">
             <h3 style="margin: 0; font-size: 1.5rem;">
                 <i class="fas fa-clipboard-check me-2"></i>
-                اختبار تحديد المستوى
+                Placement Test
             </h3>
             <button id="closeCustomPlacementTest" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">&times;</button>
         </div>
@@ -2572,7 +3414,7 @@ $(document).ready(function() {
 </style>
 
 <script>
-    // Toast notification function
+    // Toast notification function with 8-second duration
     function showToast(message, type = 'success') {
         const toastContainer = document.getElementById('toastContainer');
         const toast = document.createElement('div');
@@ -2585,8 +3427,8 @@ $(document).ready(function() {
         
         toast.innerHTML = `
             <div style="
-                padding: 15px;
-                margin-bottom: 10px;
+                padding: 12px 20px;
+                margin: 10px;
                 border: 1px solid ${borderColor};
                 border-radius: 8px;
                 color: ${textColor};
@@ -2596,10 +3438,14 @@ $(document).ready(function() {
                 align-items: center;
                 justify-content: space-between;
                 animation: fadeInDown 0.3s ease-out;
-                width: 100%;
+                max-width: 90%;
+                width: auto;
+                min-width: 200px;
+                word-break: break-word;
+                white-space: normal;
             ">
-                <div>
-                    <i class="fas fa-${icon} me-2"></i> ${message}
+                <div style="flex: 1; margin-right: 12px;">
+                    <i class="fas fa-${icon} me-2"></i>${message}
                 </div>
                 <button type="button" style="
                     background: none;
@@ -2608,6 +3454,8 @@ $(document).ready(function() {
                     cursor: pointer;
                     color: ${textColor};
                     opacity: 0.7;
+                    margin-left: 12px;
+                    flex-shrink: 0;
                 " onclick="this.parentElement.remove()">
                     <i class="fas fa-times"></i>
                 </button>
@@ -2616,12 +3464,11 @@ $(document).ready(function() {
         
         toastContainer.appendChild(toast);
         
-        // Auto remove after 5 seconds
+        // Auto remove toast after 8 seconds
         setTimeout(() => {
-            if (toast.parentElement) {
-                toast.remove();
-            }
-        }, 5000);
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 300);
+        }, 8000);
     }
     
     // Example of how to use the toast notification

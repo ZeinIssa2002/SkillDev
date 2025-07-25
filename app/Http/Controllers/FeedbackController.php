@@ -27,11 +27,5 @@ class FeedbackController extends Controller
         return redirect()->back()->with('success', 'Your feedback has been submitted successfully.');
     }
 
-    // List all feedback (admin)
-    public function listFeedback()
-    {
-        $feedbacks = Feedback::with('account')->get(); 
 
-        return view('feedback.list', compact('feedbacks'));
-    }
 }

@@ -19,7 +19,7 @@ class CourseFeedbackController extends Controller
             'details' => 'required|string|min:10|max:1000',
         ]);
         
-        // Verify the course exists and belongs to the instructor
+ 
         $course = \App\Models\Course::find($validated['course_id']);
         if (!$course || $course->instructor_id != $validated['instructor_id']) {
             return response()->json([
@@ -74,12 +74,12 @@ class CourseFeedbackController extends Controller
     
         $feedback = CourseFeedback::findOrFail($id);
     
-        // التحقق من أن التقييم يعود للمدرب الحالي
+      
         if ($feedback->instructor_id != auth()->user()->instructor_id) {
             abort(403, 'Unauthorized action.');
         }
     
-        // تحديث الحالة بناءً على القيمة المحددة
+   
         switch ($request->status) {
             case 'resolved':
                 $feedback->update([

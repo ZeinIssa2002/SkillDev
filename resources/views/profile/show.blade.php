@@ -697,43 +697,59 @@
                 </div>
 
                 @if($account->account_type === 'instructor')
-                    <div class="instructor-stats">
-                        <h3><i class="fas fa-chart-line"></i> Instructor Statistics</h3>
-                        <div class="stats-grid">
-                            <div class="stat-item">
-                                <i class="fas fa-users"></i>
-                                <span>{{ $instructor->students_count ?? '0' }} Students</span>
-                            </div>
-                            <div class="stat-item">
-                                <i class="fas fa-star"></i>
-                                <span id="average-rating-value">Loading...</span> Avg Rating
-                            </div>
-                            <div class="stat-item">
-                                <i class="fas fa-book"></i>
-                                <span>{{ $instructor->courses->count() ?? '0' }} Courses</span>
-                            </div>
-                        </div>
-                    </div>
+
                 @endif
             </div>
 
             <!-- Rating Section -->
             @if (auth()->check() && !in_array(auth()->user()->account_type, ['guest', 'admin']) && auth()->user()->account_type !== 'instructor' && $account->account_type === 'instructor' && $instructor->confirmation == 1)
-                <div class="rating-section">
-                    <h3><i class="fas fa-star"></i> Rate This Instructor</h3>
+                <div class="rating-section mb-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h3 class="mb-0 d-flex align-items-center">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            <span>Rate This Instructor</span>
+                        </h3>
+                        <div class="average-rating">
+                            <span id="average-rating-value" class="display-5 fw-bold text-primary">0.0</span>
+                            <span class="text-muted">/ 5.0</span>
+                        </div>
+                    </div>
                     <div class="rating" data-user-rating="0">
                         @for ($i = 1; $i <= 5; $i++)
                             <span class="star" data-value="{{ $i }}">&#9733;</span>
                         @endfor
                     </div>
                 </div>
+                <style>
+                    .average-rating {
+                        background: rgba(13, 110, 253, 0.1);
+                        padding: 0.5rem 1rem;
+                        border-radius: 20px;
+                        display: inline-flex;
+                        align-items: center;
+                    }
+                    .average-rating span:first-child {
+                        margin-right: 0.25rem;
+                    }
+                    .rating-section .star {
+                        cursor: pointer;
+                        font-size: 1.8rem;
+                        margin-right: 0.5rem;
+                        color: #dee2e6;
+                        transition: color 0.2s;
+                    }
+                    .rating-section .star.selected,
+                    .rating-section .star.hover {
+                        color: #ffc107;
+                    }
+                </style>
             @endif
 
             <!-- Courses Section -->
             @if($account->account_type === 'instructor' && $instructor->confirmation == 1)
                 <div class="courses-section mt-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h3><i class="fas fa-book-open"></i> Instructor Courses</h3>
+                        <h3><i class="fas fa-book-open"></i> Instructor Courses <span class="badge bg-primary">{{ $instructor->courses->count() ?? '0' }}</span></h3>
                         <a href="{{ route('instructor.courses', $account->id) }}" class="btn btn-primary">
                             View All Courses <i class="fas fa-arrow-right"></i>
                         </a>

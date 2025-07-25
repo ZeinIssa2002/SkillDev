@@ -21,14 +21,14 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'required|string',
+            'email' => 'required|email',
             'password' => 'required|string',
         ]);
     
-        $user = Account::where('username', $request->username)->first();
+        $user = Account::where('email', $request->email)->first();
     
         if (!$user) {
-            return back()->withErrors(['username' => 'Username does not exist.']);
+            return back()->withErrors(['email' => 'Email does not exist.']);
         }
     
         if (Hash::check($request->password, $user->password)) {
@@ -43,7 +43,7 @@ class AuthController extends Controller
 
     public function loginAsGuest()
     {
-        // إنشاء حساب ضيف بدون بروفايل
+ 
         $guestAccount = new Account();
         $guestAccount->username = 'guest_' . Str::random(8);
         $guestAccount->email = 'guest_' . Str::random(8) . '@temp.example';
@@ -69,7 +69,7 @@ class AuthController extends Controller
                     ->with('success', 'Welcome ' . $user->username);
             
             case 'guest':
-                // توجيه الضيوف إلى الصفحة الرئيسية مع رسالة مختلفة
+
                 return redirect()->route('homepage')
                     ->with('info', 'You are browsing as guest. Some features may be limited.');
             
@@ -87,17 +87,17 @@ class AuthController extends Controller
     public function Homepage()
     {
         if (Auth::check()) {
-            // التحقق من نوع الحساب لعرض محتوى مختلف
+ 
             $userType = auth()->user()->account_type;
             return view('homepage', compact('userType'));
         }
         return redirect()->route('logout');
     }
 
-    // دالة لتنظيف حسابات الضيوف القديمة كل 30 ثانية
+
     public static function cleanupGuestAccounts()
     {
-        $expiryDate = Carbon::now()->subDays(1); // حسابات عمرها أكثر من 30 ثانية
+        $expiryDate = Carbon::now()->subDays(1); 
         Account::where('account_type', 'guest')
                ->where('created_at', '<', $expiryDate)
                ->delete();

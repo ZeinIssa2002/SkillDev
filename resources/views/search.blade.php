@@ -282,56 +282,7 @@
             overflow: hidden;
         }
 
-        .course-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-            padding: 0 15px 15px;
-        }
 
-        .course-actions button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            transition: all 0.3s;
-            padding: 5px;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .course-actions button.favorite-button {
-            color: #e74c3c;
-            background-color: rgba(231, 76, 60, 0.1);
-        }
-
-        .course-actions button.favorite-button:hover {
-            background-color: rgba(231, 76, 60, 0.2);
-        }
-
-        .course-actions button.favorite-button.active {
-            color: white;
-            background-color: #e74c3c;
-        }
-
-        .course-actions button.apply-button {
-            color: #2ecc71;
-            background-color: rgba(46, 204, 113, 0.1);
-        }
-
-        .course-actions button.apply-button:hover {
-            background-color: rgba(46, 204, 113, 0.2);
-        }
-
-        .course-actions button.apply-button.active {
-            color: white;
-            background-color: #2ecc71;
-        }
 
         /* People Cards Styles - Improved */
         .people-grid {
@@ -515,16 +466,7 @@
                                 <div class="course-title">{{ $course->title }}</div>
                                 <div class="course-preview">{{ $course->coursepreview }}</div>
                             </div>
-                            @if (Auth::check() && Auth::user()->account_type == 'user')
-                                <div class="course-actions">
-                                    <button class="favorite-button" onclick="toggleFavorite(event, this)" data-course-id="{{ $course->id }}">
-                                        <i class="far fa-heart"></i>
-                                    </button>
-                                    <button class="apply-button" onclick="applyCourse(event, this)" data-course-id="{{ $course->id }}">
-                                        <i class="far fa-square"></i>
-                                    </button>
-                                </div>
-                            @endif
+
                         </div>
                     @endforeach
                 </div>
@@ -589,66 +531,7 @@
             }, 5000);
         }
 
-        // Toggle favorite function
-        function toggleFavorite(event, element) {
-            event.preventDefault();
-            event.stopPropagation();
-            
-            const courseId = element.getAttribute('data-course-id');
-            const icon = element.querySelector('i');
-            const isFavorite = icon.classList.contains('fas');
-            
-            fetch(`/toggle-favorite`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({
-                    course_id: courseId
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    if (data.favorite) {
-                        icon.classList.remove('far');
-                        icon.classList.add('fas');
-                        element.classList.add('active');
-                        showToast('Course added to favorites!', 'success');
-                    } else {
-                        icon.classList.remove('fas');
-                        icon.classList.add('far');
-                        element.classList.remove('active');
-                        showToast('Course removed from favorites!', 'info');
-                    }
-                } else {
-                    showToast(data.message || "An error occurred.", 'error');
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                showToast("An error occurred.", 'error');
-            });
-        }
 
-        // Apply to course function
-        function applyCourse(event, element) {
-            event.preventDefault();
-            event.stopPropagation();
-            
-            const courseId = element.getAttribute('data-course-id');
-            const icon = element.querySelector('i');
-            
-            fetch(`/apply-course`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({
-                    course_id: courseId
-                })
             })
             .then(response => response.json())
             .then(data => {
@@ -665,47 +548,9 @@
             .catch(error => {
                 console.error("Error:", error);
                 showToast("An error occurred.", 'error');
-            });
-        }
-
         // Check initial favorite and apply status
         document.addEventListener('DOMContentLoaded', () => {
-            // Check favorite status
-            document.querySelectorAll('.favorite-button').forEach(button => {
-                const courseId = button.getAttribute('data-course-id');
-                fetch(`/course/${courseId}/favorite-status`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const icon = button.querySelector('i');
-                        if (data.favorite) {
-                            icon.classList.remove('far');
-                            icon.classList.add('fas');
-                            button.classList.add('active');
-                        } else {
-                            icon.classList.remove('fas');
-                            icon.classList.add('far');
-                            button.classList.remove('active');
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
-            });
-
-            // Check apply status
-            document.querySelectorAll('.apply-button').forEach(button => {
-                const courseId = button.getAttribute('data-course-id');
-                fetch(`/course/${courseId}/apply-status`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const icon = button.querySelector('i');
-                        if (data.apply) {
-                            icon.classList.remove('far', 'fa-square');
-                            icon.classList.add('fas', 'fa-check-square');
-                            button.classList.add('active');
-                            button.style.pointerEvents = "none";
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
-            });
+            // No favorite/apply functionality needed
         });
     </script>
 </body>

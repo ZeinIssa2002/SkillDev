@@ -24,7 +24,6 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required|unique:account,username|max:255',
             'email' => 'required|email|unique:account,email|max:255',
             'password' => 'required|min:8|confirmed',
         ]);
@@ -34,22 +33,21 @@ class RegisterController extends Controller
         }
 
         $isInstructor = $request->has('is_instructor');
+        $email = $request->email;
+        $username = explode('@', $email)[0] . '_' . substr(md5(time()), 0, 6); 
 
-    
         $account = new Account();
-        $account->username = $request->username;
-        $account->email = $request->email;
+        $account->username = $username; 
+        $account->email = $email;
         $account->password = Hash::make($request->password);
         $account->account_type = $isInstructor ? 'instructor' : 'user';
         $account->save();
 
-
         $profile = new Profile();
-        $profile->profilename = $request->username;
+        $profile->profilename = $username; 
         $profile->profileinfo = $request->input('profileinfo', 'Hello there!');
         $profile->account_id = $account->id;
         $profile->save();
-
 
         $account->profile_id = $profile->profile_id;
         $account->save();

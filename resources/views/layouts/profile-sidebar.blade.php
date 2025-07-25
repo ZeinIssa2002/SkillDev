@@ -34,12 +34,6 @@
             </li>
         @endif
         @if (auth()->check() && auth()->user()->account_type == 'instructor')
-            <li class="{{ request()->is('instructor-courses*') ? 'active' : '' }}">
-                <a href="{{ route('instructor.courses', auth()->id()) }}">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    Instructor Courses
-                </a>
-            </li>
             <li class="{{ request()->is('profile/feedback*') ? 'active' : '' }}">
                 <a href="{{ route('instructor.feedback') }}">
                     <i class="fas fa-comments"></i>

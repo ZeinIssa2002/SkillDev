@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
-    // El método checkInstructor ha sido reemplazado por el middleware InstructorMiddleware
+
     public function index()
     {
         $user = Auth::user();
@@ -26,7 +26,7 @@ class CourseController extends Controller
         if ($user->account_type == 'instructor') {
             $instructor = Instructor::where('account_id', $user->id)->first();
     
-            // التحقق من وجود instructor و confirmation
+
             if (!$instructor) {
                 return redirect()->route('homepage')->with('error', '⚠️ You are not registered as an instructor yet!');
             }
@@ -92,19 +92,19 @@ public function store(Request $request)
 
     $validated['instructor_id'] = $instructor->id;
 
-    // Handle photo upload
+
     if ($request->hasFile('photo')) {
         $photoPath = $request->file('photo')->store('photos', 'public');
         $validated['photo'] = $photoPath;
     }
 
-    // Handle video upload
+ 
     if ($request->hasFile('video')) {
         $videoPath = $request->file('video')->store('videos', 'public');
         $validated['video'] = $videoPath;
     }
 
-    // Handle multiple images upload
+  
     $courseImages = [];
     if ($request->hasFile('course_images')) {
         foreach ($request->file('course_images') as $image) {
@@ -113,7 +113,7 @@ public function store(Request $request)
         }
     }
 
-    // Handle placement test data if enabled
+ 
     if ($request->has('enable_placement_test')) {
         $placementQuestions = [];
         $requestQuestions = $request->input('placement_questions', []);
@@ -139,30 +139,30 @@ public function store(Request $request)
         $validated['placement_pass_score'] = null;
     }
 
-    // Create course
+ 
     $course = Course::create($validated);
 
-    // Save additional images
+  
     if (!empty($courseImages)) {
         $course->images()->createMany($courseImages);
     }
     
-    // Handle file uploads
+    
     if ($request->hasFile('course_files')) {
         $uploadedFiles = [];
         $existingFiles = is_array($course->files) ? $course->files : [];
         
         foreach ($request->file('course_files') as $file) {
             try {
-                // Validate file type and size
+             
                 $validated = $request->validate([
                     'course_files.*' => 'file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar|max:20480', // 20MB max
                 ]);
                 
-                // Upload the file
+                
                 $path = $file->store('course_files/' . $course->id, 'public');
                 
-                // Add to uploaded files array
+               
                 $uploadedFiles[] = [
                     'name' => $file->getClientOriginalName(),
                     'path' => $path,
@@ -171,18 +171,18 @@ public function store(Request $request)
                     'uploaded_at' => now()->toDateTimeString()
                 ];
             } catch (\Exception $e) {
-                // Log error but don't fail the entire request
+                
                 \Log::error('File upload failed: ' . $e->getMessage());
             }
         }
         
-        // Merge existing files with newly uploaded ones
+        
         $allFiles = array_merge($existingFiles, $uploadedFiles);
         $course->files = $allFiles;
         $course->save();
     }
 
-    // Handle levels and questions
+   
     foreach ($request->levels as $levelIndex => $levelData) {
         $level = $course->levels()->create([
             'title' => $levelData['title'],
@@ -190,12 +190,12 @@ public function store(Request $request)
             'passing_score' => $levelData['passing_score'],
         ]);
 
-        // Handle text contents
+     
         if (!empty($levelData['text_contents'])) {
             $level->text_contents = $levelData['text_contents'];
         }
 
-        // Handle images
+      
         $imagePaths = [];
         if (!empty($levelData['images'])) {
             foreach ($levelData['images'] as $image) {
@@ -205,7 +205,7 @@ public function store(Request $request)
             $level->images = $imagePaths;
         }
 
-        // Handle videos
+      
         $videoPaths = [];
         if (!empty($levelData['videos'])) {
             foreach ($levelData['videos'] as $video) {
@@ -217,7 +217,7 @@ public function store(Request $request)
 
         $level->save();
 
-        // Handle questions if exists
+    
         if (!empty($levelData['questions'])) {
             foreach ($levelData['questions'] as $questionData) {
                 $level->questions()->create([
@@ -247,7 +247,7 @@ public function update(Request $request, $id)
         'levels' => 'required|array|min:1',
     ]);
 
-    // Handle placement test data if enabled
+   
     if ($request->has('enable_placement_test')) {
         $placementQuestions = [];
         $requestQuestions = $request->input('placement_questions', []);
@@ -289,14 +289,14 @@ public function update(Request $request, $id)
             'video' => $request->has('deleted_video')
         ];
         
-        // معالجة الصور والفيديوهات والنصوص المحذوفة من المستويات
+      
         foreach ($request->all()['levels'] ?? [] as $level) {
             if (empty($level['id'])) continue;
             
             $levelObj = $course->levels()->find($level['id']);
             if (!$levelObj) continue;
             
-            // معالجة الصور المحذوفة
+          
             if (isset($level['removed_images']) && !empty($level['removed_images'])) {
                 $currentImages = is_array($levelObj->images) ? $levelObj->images : (json_decode($levelObj->images, true) ?: []);
                 
@@ -312,7 +312,7 @@ public function update(Request $request, $id)
                 $levelObj->save();
             }
             
-            // معالجة الفيديوهات المحذوفة
+      
             if (isset($level['removed_videos']) && !empty($level['removed_videos'])) {
                 $currentVideos = is_array($levelObj->videos) ? $levelObj->videos : (json_decode($levelObj->videos, true) ?: []);
                 
@@ -328,7 +328,7 @@ public function update(Request $request, $id)
                 $levelObj->save();
             }
             
-            // معالجة النصوص المحذوفة
+        
             if (isset($level['removed_texts']) && !empty($level['removed_texts'])) {
                 $currentTexts = is_array($levelObj->text_contents) ? $levelObj->text_contents : (json_decode($levelObj->text_contents, true) ?: []);
                 
@@ -344,11 +344,11 @@ public function update(Request $request, $id)
             }
         }
 
-        // Placement Test Logic (update)
+      
         if ($request->has('enable_placement_test')) {
             $placementQuestions = $request->input('placement_questions', []);
             $placementPassScore = $request->input('placement_pass_score', 70);
-            // Validate question count
+        
             if (count($placementQuestions) < 2 || count($placementQuestions) > 20) {
                 throw new \Exception('Placement test must have between 2 and 20 questions.');
             }
@@ -373,43 +373,43 @@ public function update(Request $request, $id)
             'difficulty_level' => $validated['difficulty_level'],
         ]);
 
-// معالجة الصورة المصغرة
+
 if ($request->hasFile('photo')) {
     if ($course->photo) Storage::delete('public/' . $course->photo);
     $course->photo = $request->file('photo')->store('photos', 'public');
 } elseif ($request->input('deleted_thumbnail') == '1') {
-    // Only delete if explicitly marked for deletion
+    
     if ($course->photo) {
         Storage::delete('public/' . $course->photo);
         $course->photo = null;
     }
 }
 
-// معالجة الفيديو
+
 if ($request->hasFile('video')) {
     if ($course->video) Storage::delete('public/' . $course->video);
     $course->video = $request->file('video')->store('videos', 'public');
 } elseif ($request->input('deleted_video') == '1') {
-    // Only delete if explicitly marked for deletion
+    
     if ($course->video) {
         Storage::delete('public/' . $course->video);
         $course->video = null;
     }
 }
 
-// Handle file uploads
+
 if ($request->hasFile('course_files')) {
     foreach ($request->file('course_files') as $file) {
         try {
             $course->uploadFile($file);
         } catch (\Exception $e) {
-            // Log error but don't fail the entire request
+            
             \Log::error('File upload failed: ' . $e->getMessage());
         }
     }
 }
 
-// Handle file deletions
+
 if (!empty($deletedData['files'])) {
     foreach ($deletedData['files'] as $fileIndex) {
         try {
@@ -421,7 +421,7 @@ if (!empty($deletedData['files'])) {
 }
         $course->save();
 
-        // حذف الصور المحددة
+        
         if (!empty($deletedData['images'])) {
             $imagesToDelete = $course->images()->whereIn('id', $deletedData['images'])->get();
             foreach ($imagesToDelete as $image) {
@@ -430,7 +430,7 @@ if (!empty($deletedData['files'])) {
             }
         }
 
-        // إضافة صور جديدة للكورس
+       
         if ($request->hasFile('course_images')) {
             foreach ($request->file('course_images') as $image) {
                 $path = $image->store('course_images', 'public');
@@ -438,7 +438,7 @@ if (!empty($deletedData['files'])) {
             }
         }
 
-        // حذف المستويات والأسئلة المحددة
+     
         if (!empty($deletedData['levels'])) {
             CourseLevel::whereIn('id', $deletedData['levels'])
                      ->where('course_id', $course->id)
@@ -453,34 +453,34 @@ if (!empty($deletedData['files'])) {
                    ->delete();
         }
 
-        // معالجة المستويات
+     
         foreach ($validated['levels'] as $levelIndex => $levelData) {
             $levelData['order'] = $levelIndex + 1;
 
             if (isset($levelData['id'])) {
-                // تحديث مستوى موجود
+             
                 $level = $course->levels()->where('id', $levelData['id'])->first();
                 if ($level) {
                     $level->update([
                         'title' => $levelData['title'],
                         'order' => $levelData['order'],
                         'text_contents' => $levelData['text_contents'] ?? [],
-                        'passing_score' => $levelData['passing_score'] ?? 70, // إضافة علامة النجاح الافتراضية
+                        'passing_score' => $levelData['passing_score'] ?? 70, 
                     ]);
                 }
             } else {
-                // إنشاء مستوى جديد
+              
                 $level = $course->levels()->create([
                     'title' => $levelData['title'],
                     'order' => $levelData['order'],
                     'text_contents' => $levelData['text_contents'] ?? [],
                     'images' => [],
                     'videos' => [],
-                    'passing_score' => $levelData['passing_score'] ?? 70, // إضافة علامة النجاح الافتراضية
+                    'passing_score' => $levelData['passing_score'] ?? 70, 
                 ]);
             }
 
-            // معالجة الوسائط الجديدة
+           
             if (!empty($levelData['images'])) {
                 $imagePaths = $level->images ?? [];
                 foreach ($levelData['images'] as $image) {
@@ -501,11 +501,11 @@ if (!empty($deletedData['files'])) {
 
             $level->save();
 
-            // معالجة الأسئلة
+           
             if (!empty($levelData['questions'])) {
                 foreach ($levelData['questions'] as $questionData) {
                     if (isset($questionData['id'])) {
-                        // تحديث سؤال موجود
+                        
                         $question = $level->questions()->where('id', $questionData['id'])->first();
                         if ($question) {
                             $question->update([
@@ -515,7 +515,7 @@ if (!empty($deletedData['files'])) {
                             ]);
                         }
                     } else {
-                        // إنشاء سؤال جديد
+                       
                         $level->questions()->create([
                             'question_text' => $questionData['question_text'],
                             'options' => $questionData['options'],
@@ -531,7 +531,7 @@ if (!empty($deletedData['files'])) {
 
 public function destroy($id)
 {
-    // Ensure this is a DELETE request
+  
     if (request()->method() !== 'DELETE') {
         if (request()->expectsJson() || request()->ajax()) {
             return response()->json(['success' => false, 'message' => 'Invalid HTTP method.'], 405);
@@ -543,15 +543,13 @@ public function destroy($id)
     $course = Course::findOrFail($id);
     $instructor = Instructor::where('account_id', Auth::id())->first();
     if ($instructor && $course->instructor_id === $instructor->id) {
-        // حذف جميع البيانات المرتبطة بالدورة بشكل مرتب
-        // حذف جميع البيانات المرتبطة بالدورة بشكل مرتب
-        // Delete course levels and their questions
+
         foreach ($course->levels as $level) {
-            // Delete questions for this level
+         
             foreach ($level->questions as $question) {
                 $question->delete();
             }
-            // Delete level media files (images/videos/texts)
+           
             if (is_array($level->images)) {
                 foreach ($level->images as $image) {
                     if ($image) { \Storage::delete('public/' . $image); }
@@ -564,20 +562,20 @@ public function destroy($id)
             }
             $level->delete();
         }
-        // Delete user progress
+       
         $course->userProgress()->delete();
-        // Delete course images
+       
         foreach ($course->images as $img) {
             if ($img->image_path) { \Storage::delete('public/' . $img->image_path); }
             $img->delete();
         }
-        // Delete course thumbnail and video
+        
         if ($course->photo) { \Storage::delete('public/' . $course->photo); }
         if ($course->video) { \Storage::delete('public/' . $course->video); }
-        // Delete comments and ratings
+    
         $course->comments()->delete();
         $course->ratings()->delete();
-        // Finally, delete the course
+        
         $course->delete();
         if (request()->expectsJson() || request()->ajax()) {
             return response()->json(['success' => true, 'message' => 'Course deleted successfully!']);
@@ -598,16 +596,16 @@ public function edit($id)
     
     $course = Course::findOrFail($id);
     
-    // Get the instructor
+    
     $instructor = Instructor::where('account_id', Auth::id())->first();
     if (!$instructor || $course->instructor_id !== $instructor->id) {
         return redirect()->route('course.index')->with('error', 'You do not have permission to edit this course.');
     }
     
-    // Get all categories for the category dropdown
+   
     $categories = Category::all();
     
-    // Get all courses belonging to this instructor
+   
     $instructorCourses = Course::where('instructor_id', $instructor->id)->get();
     
     return view('course.edit', compact('course', 'categories', 'instructorCourses'));
@@ -671,7 +669,7 @@ public function edit($id)
         }
         
 
-    // Removed individual getFavoriteStatus as it's replaced by getAllCoursesStatuses
+
     
     /**
      * Get statuses for all courses at once
@@ -693,7 +691,7 @@ public function edit($id)
         
         $userId = $user->id;
         
-        // Get all course statuses for this user in a single query
+
         $courseUsers = CourseUser::where('user_id', $userId)->get();
         
         $statuses = [];
@@ -723,25 +721,29 @@ public function edit($id)
     $courseId = $request->input('course_id');
     $course = Course::findOrFail($courseId);
 
-    // Check if course has a prerequisite
+   
     if ($course->prerequisite_id) {
-        // Check if user has completed the prerequisite course
+       
         $prerequisiteCompleted = UserProgress::where('user_id', $authId)
             ->where('course_id', $course->prerequisite_id)
             ->where('completed', true)
             ->exists();
-        // Check if user passed placement test for this course
+     
         $placementPassed = UserProgress::where('user_id', $authId)
             ->where('course_id', $course->id)
             ->where('placement_passed', true)
             ->exists();
         if (!$prerequisiteCompleted && !$placementPassed) {
             $prerequisiteCourse = Course::find($course->prerequisite_id);
+            $message = '<div class="d-flex align-items-center">'.
+
+                     '<div>Before you can enroll in this course, you need to complete the prerequisite course: '.
+                     '<a href="'.route('course.show', $prerequisiteCourse->id).'" class="fw-bold text-primary">'.
+                     $prerequisiteCourse->title.'</a></div></div>';
+            
             return response()->json([
                 'success' => false,
-                'message' => 'You must complete the prerequisite course first: '.
-                            '<a href="'.route('course.show', $prerequisiteCourse->id).'">'.
-                            $prerequisiteCourse->title.'</a>',
+                'message' => $message,
             ]);
         }
     }
@@ -791,7 +793,7 @@ public function edit($id)
     ]);
 }
 
-// Individual course status functions have been removed and replaced by getAllCoursesStatuses
+
 /////////////////////////////////////////////////////////////
 
 public function show($id)
@@ -804,25 +806,25 @@ public function show($id)
     $prerequisiteCompleted = false;
     $placementPassed = false;
     $placementTest = null;
-    $placementPassScore = 70; // Default pass score
+    $placementPassScore = 70; 
 
     if (Auth::check()) {
         $authId = Auth::id();
         $user = User::where('account_id', $authId)->first();
         $userId = $user ? $user->id : null;
         
-        // Get user progress for this course
+    
         $userProgress = UserProgress::where('user_id', $authId)
             ->where('course_id', $id)
             ->first();
             
-        // Check if user has applied to this course
+    
         $courseApplied = $userId ? CourseUser::where('user_id', $userId)
             ->where('course_id', $id)
             ->where('apply', true)
             ->exists() : false;
             
-        // If user has applied but no progress exists, create one
+     
         if ($courseApplied && !$userProgress) {
             $userProgress = UserProgress::create([
                 'user_id' => $authId,
@@ -833,21 +835,21 @@ public function show($id)
             ]);
         }
         
-        // Check prerequisite completion
+       
         if ($course->prerequisite_id) {
             $prerequisiteCompleted = UserProgress::where('user_id', $authId)
                 ->where('course_id', $course->prerequisite_id)
                 ->where('completed', true)
                 ->exists();
         } else {
-            $prerequisiteCompleted = true; // No prerequisite required
+            $prerequisiteCompleted = true;
         }
         
-        // Check placement test status
+      
         $placementPassed = $userProgress ? (bool)$userProgress->placement_passed : false;
     }
 
-    // Get placement test data
+
     if ($course->placement_test) {
         $placementTest = json_decode($course->placement_test, true);
         $placementPassScore = $course->placement_pass_score ?? 70;
@@ -856,7 +858,7 @@ public function show($id)
     return view('course.show', compact('course', 'userProgress', 'prerequisiteCompleted', 'placementPassed', 'placementTest', 'placementPassScore'));
 }
 
-// app/Http/Controllers/CourseController.php
+
 
 public function submitPlacementTest(Request $request, $id)
 {
@@ -875,7 +877,7 @@ public function submitPlacementTest(Request $request, $id)
         'placement_passed' => false
     ]);
 
-    // جلب بيانات الاختبار
+   
     $placementTest = $course->placement_test ? json_decode($course->placement_test, true) : [];
     $placementPassScore = $course->placement_pass_score ?? 70;
     $answers = $request->input('answers', []);
@@ -884,7 +886,7 @@ public function submitPlacementTest(Request $request, $id)
 
     foreach ($placementTest as $idx => $q) {
         if (!isset($q['correct'])) {
-            // إذا لم يوجد correct، اعتبر السؤال خاطئ أو تجاهله
+           
             continue;
         }
         if (isset($answers[$idx]) && intval($answers[$idx]) === intval($q['correct'])) {
@@ -932,7 +934,7 @@ public function submitTest(Request $request, $id)
                                ->where('course_id', $id)
                                ->firstOrFail();
 
-    // التحقق من الإجابات
+   
     $correctCount = 0;
     $totalQuestions = count($level->questions);
     
@@ -943,28 +945,29 @@ public function submitTest(Request $request, $id)
         }
     }
 
-    // Calculate percentage
+   
     $score = $totalQuestions > 0 ? ($correctCount / $totalQuestions) * 100 : 0;
-    $passingScore = $level->passing_score ?? 70; // Default to 70% if not set
+    $passingScore = $level->passing_score ?? 70; 
     $passed = $score >= $passingScore;
 
     if ($passed) {
-        // الانتقال للمستوى التالي أو إكمال الكورس
+        
         $nextLevel = $level->order + 1;
         $maxLevel = CourseLevel::where('course_id', $id)->max('order');
 
         if ($nextLevel <= $maxLevel) {
-            // Update to next level but stay on the same page
+            
             $userProgress->update(['current_level' => $nextLevel]);
-            return back()->with('success', 'Congratulations! You passed this level. Your score: ' . number_format($score, 1) . '%');
+            $message = "You passed this level.\nYour score: " . number_format($score, 1) . '%';
+            return back()->with('success', $message);
         } else {
-            // Course completed
             $userProgress->update(['completed' => true]);
-            return redirect()->route('course.show', $id)
-                           ->with('success', "Congratulations! You completed the course. Your score: " . number_format($score, 1) . "%, Passing score: {$passingScore}%.");
+            $message = "You completed the course!\nYour score: " . number_format($score, 1) . "%\nPassing score: {$passingScore}%.";
+            return redirect()->route('course.show', $id)->with('success', $message);
         }
     } else {
-        return back()->with('error', "You need {$passingScore}% to pass this level. Your score: {$score}%. Please try again.");
+        $message = "You need {$passingScore}% to pass this level.\nYour score: {$score}%\nPlease try again.";
+        return back()->with('error', $message);
     }
 }
 public function showLevel($id, $level)
@@ -981,7 +984,7 @@ public function showLevel($id, $level)
         'completed' => false
     ]);
 
-    // التأكد من أن المستخدم في المستوى الصحيح
+   
     if ($userProgress->current_level != $level) {
         return redirect()->route('course.show', $id);
     }

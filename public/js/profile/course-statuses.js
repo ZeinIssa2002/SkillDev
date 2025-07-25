@@ -78,13 +78,62 @@ function applyCourse(event, element) {
                 element.style.pointerEvents = "none"; // Disable further clicks
                 showSuccessMessage('Course applied successfully');
             } else {
-                alert(data.message || "An error occurred.");
+                // Show styled alert for prerequisite message
+                showAlertMessage(data.message || "An error occurred.", data.success === false ? 'warning' : 'danger');
             }
         })
         .catch(error => {
             console.error("Error:", error);
-            alert("An error occurred.");
+            showAlertMessage("An error occurred while processing your request.", 'danger');
         });
+}
+
+// Function to show styled alert message
+function showAlertMessage(message, type = 'info') {
+    // Create alert container if it doesn't exist
+    let alertContainer = document.getElementById('alert-container');
+    if (!alertContainer) {
+        alertContainer = document.createElement('div');
+        alertContainer.id = 'alert-container';
+        alertContainer.style.position = 'fixed';
+        alertContainer.style.top = '80px';
+        alertContainer.style.right = '20px';
+        alertContainer.style.zIndex = '9999';
+        alertContainer.style.maxWidth = '400px';
+        alertContainer.style.width = '100%';
+        document.body.appendChild(alertContainer);
+    }
+    
+    // Create alert element
+    const alert = document.createElement('div');
+    alert.className = `alert alert-${type} alert-dismissible fade show`;
+    alert.role = 'alert';
+    alert.style.marginBottom = '10px';
+    alert.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+    alert.style.borderLeft = `4px solid ${type === 'warning' ? '#ffc107' : type === 'danger' ? '#dc3545' : '#0d6efd'}`;
+    
+    // Add message content with icon
+    const icon = type === 'warning' ? 'exclamation-triangle' : type === 'danger' ? 'times-circle' : 'info-circle';
+    alert.innerHTML = `
+        <div class="d-flex align-items-center">
+            <i class="fas fa-${icon} me-2"></i>
+            <div>${message}</div>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    `;
+    
+    // Add to container
+    alertContainer.appendChild(alert);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        alert.classList.remove('show');
+        setTimeout(() => {
+            if (alert.parentNode) {
+                alert.parentNode.removeChild(alert);
+            }
+        }, 300);
+    }, 5000);
 }
 
 // Function to show success message

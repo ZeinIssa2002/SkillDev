@@ -1140,8 +1140,44 @@
         </div>
     </template>
 
+    <style>
+        /* Ensure textarea has no scrollbar */
+        textarea[name="content"],
+        textarea[name="description"] {
+            overflow: hidden !important;
+            resize: none !important;
+            min-height: 100px;
+            max-height: none !important;
+        }
+    </style>
     <script>
+        // Auto-resize textarea function
+        function autoResizeTextarea(textarea) {
+            // Reset height to auto to get the correct scrollHeight
+            textarea.style.height = 'auto';
+            // Set height to scrollHeight to show all content
+            textarea.style.height = textarea.scrollHeight + 'px';
+            // Ensure the page doesn't jump by scrolling to maintain position
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            window.scrollTo(0, scrollTop);
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Auto-resize content textarea
+            const contentTextarea = document.querySelector('textarea[name="content"]');
+            if (contentTextarea) {
+                // Initial resize with a small delay to ensure all content is loaded
+                setTimeout(() => autoResizeTextarea(contentTextarea), 100);
+                
+                // Auto-resize on input
+                contentTextarea.addEventListener('input', function() {
+                    autoResizeTextarea(this);
+                });
+                
+                // Also resize on window resize
+                window.addEventListener('resize', () => autoResizeTextarea(contentTextarea));
+            }
+            
             // تعريف المتغيرات العامة
             let deletedImages = [];
             let deletedThumbnail = false;

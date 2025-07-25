@@ -13,6 +13,16 @@
     <link id="u-theme-google-font" rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
     <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-hover: #3a56d4;
+            --secondary-color: #6c757d;
+            --success-color: #10b981;
+            --success-hover: #0d9f6e;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
         
         /* Floating Add Course Button */
         .floating-add-btn {
@@ -166,21 +176,25 @@
         }
 
         .course-actions button.edit-button {
-            color: var(--secondary-color);
+            color: var(--warning-color);
             background-color: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--warning-color);
         }
 
         .course-actions button.edit-button:hover {
-            background-color: rgba(245, 158, 11, 0.2);
+            background-color: var(--warning-color);
+            color: white;
         }
 
         .course-actions button.delete-button {
             color: var(--danger-color);
             background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger-color);
         }
 
         .course-actions button.delete-button:hover {
-            background-color: rgba(239, 68, 68, 0.2);
+            background-color: var(--danger-color);
+            color: white;
         }
 
         /* Confirmation Modal */

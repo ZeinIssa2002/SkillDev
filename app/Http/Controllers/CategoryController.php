@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class CategoryController extends Controller
 {
-    // El método checkAdmin ha sido reemplazado por el middleware AdminMiddleware
+
     public function index()
     {
         $categories = Category::all();

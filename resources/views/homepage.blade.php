@@ -137,14 +137,14 @@
             left: 20px;
             width: 60px;
             height: 60px;
-            background-color: #4f46e5;
+            background-color: #000000;
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 10px rgb(0, 0, 0);
             z-index: 999;
         }
         

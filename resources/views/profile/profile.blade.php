@@ -12,7 +12,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
     <link href="{{ asset('css/fontawesome-free-6.0.0-web/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('js/libs/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="{{ asset('js/libs/jquery.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         :root {
@@ -412,21 +414,125 @@
                             </button>
                         </form>
                         @if ($profile->photo)
-                            <form action="{{ route('profile.deletePhoto', $profile->profile_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete your profile picture?');">
+                            <form id="deletePhotoForm" action="{{ route('profile.deletePhoto', $profile->profile_id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="delete">
+                                <button type="button" class="delete" onclick="confirmDeletePhoto()">
                                     <i class="fas fa-trash"></i> Delete Photo
                                 </button>
                             </form>
+                            
+                            <script>
+                                function confirmDeletePhoto() {
+                                    Swal.fire({
+                                        title: 'Delete Profile Picture',
+                                        text: 'Are you sure you want to delete your profile picture? This action cannot be undone.',
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#ef4444',
+                                        cancelButtonColor: '#94a3b8',
+                                        confirmButtonText: 'Yes, delete it!',
+                                        cancelButtonText: 'Cancel',
+                                        reverseButtons: true,
+                                        customClass: {
+                                            confirmButton: 'swal2-confirm',
+                                            cancelButton: 'swal2-cancel'
+                                        }
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            document.getElementById('deletePhotoForm').submit();
+                                        }
+                                    });
+                                }
+                            </script>
+                            
+                            <style>
+                                .swal2-popup {
+                                    font-family: 'Roboto', sans-serif;
+                                    border-radius: 12px;
+                                }
+                                .swal2-title {
+                                    font-weight: 600;
+                                    color: var(--dark-color);
+                                }
+                                .swal2-html-container {
+                                    color: #64748b;
+                                }
+                                .swal2-confirm {
+                                    background-color: var(--danger-color) !important;
+                                    transition: var(--transition);
+                                }
+                                .swal2-confirm:hover {
+                                    background-color: var(--danger-hover) !important;
+                                }
+                                .swal2-cancel {
+                                    background-color: var(--gray-light) !important;
+                                    color: var(--dark-color) !important;
+                                    transition: var(--transition);
+                                }
+                                .swal2-cancel:hover {
+                                    background-color: var(--gray-color) !important;
+                                }
+                            </style>
                         @endif
-                        <form action="{{ route('profile.toggleHide', $profile->profile_id) }}" method="POST">
+                        <form id="toggleHideForm" action="{{ route('profile.toggleHide', $profile->profile_id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="{{ $profile->hide ? 'btn-success' : 'btn-warning' }}">
+                            <button type="button" class="{{ $profile->hide ? 'btn-success' : 'btn-warning' }}" onclick="confirmToggleHide({{ $profile->hide ? 'true' : 'false' }})">
                                 <i class="fas fa-eye{{ $profile->hide ? '-slash' : '' }}"></i>
                                 {{ $profile->hide ? 'Show Private Info' : 'Hide Private Info' }}
                             </button>
                         </form>
+                        
+                        <script>
+                            function confirmToggleHide(isHidden) {
+                                const action = isHidden ? 'show' : 'hide';
+                                const title = isHidden ? 'Show Private Information' : 'Hide Private Information';
+                                const text = isHidden 
+                                    ? 'Are you sure you want to make your private information visible to others?'
+                                    : 'Are you sure you want to hide your private information from others?';
+                                const confirmText = isHidden ? 'Yes, show it' : 'Yes, hide it';
+                                
+                                Swal.fire({
+                                    title: title,
+                                    text: text,
+                                    icon: 'question',
+                                    showCancelButton: true,
+                                    confirmButtonColor: isHidden ? 'var(--success-color)' : 'var(--warning-color)',
+                                    cancelButtonColor: 'var(--gray-color)',
+                                    confirmButtonText: confirmText,
+                                    cancelButtonText: 'Cancel',
+                                    reverseButtons: true,
+                                    customClass: {
+                                        confirmButton: 'swal2-confirm',
+                                        cancelButton: 'swal2-cancel'
+                                    }
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        document.getElementById('toggleHideForm').submit();
+                                    }
+                                });
+                            }
+                            
+                            // Style the confirmation button based on action
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const style = document.createElement('style');
+                                style.textContent = `
+                                    .swal2-warning .swal2-confirm {
+                                        background-color: var(--warning-color) !important;
+                                    }
+                                    .swal2-warning .swal2-confirm:hover {
+                                        background-color: var(--warning-hover) !important;
+                                    }
+                                    .swal2-question .swal2-confirm {
+                                        background-color: var(--success-color) !important;
+                                    }
+                                    .swal2-question .swal2-confirm:hover {
+                                        background-color: var(--success-hover) !important;
+                                    }
+                                `;
+                                document.head.appendChild(style);
+                            });
+                        </script>
                     </div>
                 </div>
                 <div class="profile-details">
@@ -439,13 +545,55 @@
                         <div class="bio-content">
                             <p>{{ $profile->profileinfo ?? 'No information available. You can add information about yourself in the profile settings.' }}</p>
                             @if (!empty($profile->profileinfo))
-                                <form method="POST" action="{{ route('profileinfo.delete') }}">
+                                <form id="deleteBioForm" method="POST" action="{{ route('profileinfo.delete') }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" title="Delete Bio">
+                                    <button type="button" class="delete-bio" title="Delete Bio" onclick="confirmDeleteBio()">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
+                                
+                                <script>
+                                    function confirmDeleteBio() {
+                                        Swal.fire({
+                                            title: 'Delete Bio',
+                                            text: 'Are you sure you want to delete your bio? This action cannot be undone.',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#ef4444',
+                                            cancelButtonColor: '#94a3b8',
+                                            confirmButtonText: 'Yes, delete it!',
+                                            cancelButtonText: 'Cancel',
+                                            reverseButtons: true,
+                                            customClass: {
+                                                confirmButton: 'swal2-confirm',
+                                                cancelButton: 'swal2-cancel'
+                                            }
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                document.getElementById('deleteBioForm').submit();
+                                            }
+                                        });
+                                    }
+                                </script>
+                                
+                                <style>
+                                    .delete-bio {
+                                        background: none;
+                                        border: none;
+                                        color: var(--danger-color);
+                                        cursor: pointer;
+                                        padding: 5px 10px;
+                                        border-radius: 4px;
+                                        transition: var(--transition);
+                                        font-size: 14px;
+                                        margin-left: 10px;
+                                    }
+                                    .delete-bio:hover {
+                                        background-color: #fee2e2;
+                                        color: var(--danger-hover);
+                                    }
+                                </style>
                             @endif
                         </div>
                     </div>

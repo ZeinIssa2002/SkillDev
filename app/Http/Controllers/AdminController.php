@@ -38,7 +38,7 @@ public function courses()
 
     public function destroyCourse($id)
     {
-        // Ensure this is a DELETE request
+
         if (request()->method() !== 'DELETE') {
             if (request()->expectsJson() || request()->ajax()) {
                 return response()->json(['success' => false, 'message' => 'Invalid HTTP method.'], 405);
@@ -49,14 +49,13 @@ public function courses()
 
         $course = Course::findOrFail($id);
         
-        // Delete all related data
-        // Delete course levels and their questions
+
         foreach ($course->levels as $level) {
-            // Delete questions for this level
+
             foreach ($level->questions as $question) {
                 $question->delete();
             }
-            // Delete level media files (images/videos/texts)
+
             if (is_array($level->images)) {
                 foreach ($level->images as $image) {
                     if ($image) { \Storage::delete('public/' . $image); }
@@ -70,28 +69,28 @@ public function courses()
             $level->delete();
         }
         
-        // Delete user progress and course enrollments
+
         $course->userProgress()->delete();
-        // Delete course enrollments (coursesusers table)
+
         if (method_exists($course, 'users')) {
             $course->users()->detach();
         }
         
-        // Delete course images
+
         foreach ($course->images as $img) {
             if ($img->image_path) { \Storage::delete('public/' . $img->image_path); }
             $img->delete();
         }
         
-        // Delete course thumbnail and video
+
         if ($course->photo) { \Storage::delete('public/' . $course->photo); }
         if ($course->video) { \Storage::delete('public/' . $course->video); }
         
-        // Delete comments and ratings
+
         $course->comments()->delete();
         $course->ratings()->delete();
         
-        // Finally, delete the course
+
         $course->delete();
 
         if (request()->expectsJson() || request()->ajax()) {
@@ -120,7 +119,7 @@ public function courses()
         $instructor->confirmation = !$instructor->confirmation;
         $instructor->save();
 
-        $status = $instructor->confirmation ? 'تم تفعيل المدرب بنجاح' : 'تم إلغاء تفعيل المدرب';
+        $status = $instructor->confirmation ? 'The Instructor has been activated' : 'The Instructor has been deactivated';
         return back()->with('success', $status);
     }
     public function reports(Request $request)
@@ -129,7 +128,7 @@ public function courses()
         $query = CourseReport::with(['course', 'reporter'])
                     ->latest();
         
-        // Filter by status
+
         if ($request->status == 'pending') {
             $query->where('resolved', false)->where('in_progress', false);
         } elseif ($request->status == 'in-progress') {
@@ -138,7 +137,7 @@ public function courses()
             $query->where('resolved', true);
         }
         
-        // Search
+
         if ($request->search) {
             $query->whereHas('course', function($q) use ($request) {
                 $q->where('title', 'like', '%'.$request->search.'%');
@@ -200,16 +199,7 @@ public function deleteReport($id)
     
     return back()->with('success', 'Report deleted successfully.');
 }
-/////////////////////////////////////////////////////////
-public function markMessagesAsRead(Account $user)
-{
-    Message::where('sender_id', $user->id)
-        ->where('receiver_id', Auth::id())
-        ->where('is_read', false)
-        ->update(['is_read' => true]);
 
-    return response()->json(['success' => true]);
-}
 ///////////////////////////////////////////////////////////
 public function users()
 {

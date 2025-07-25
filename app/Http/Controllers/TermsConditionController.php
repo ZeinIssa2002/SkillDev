@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class TermsConditionController extends Controller
 {
-    // El método checkAdmin ha sido reemplazado por el middleware AdminMiddleware
+
     public function index()
     {
         $terms = TermsCondition::first();

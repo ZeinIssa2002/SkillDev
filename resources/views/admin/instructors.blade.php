@@ -4,12 +4,22 @@
 
 @section('styles')
 <style>
+    .badge {
+        color: white !important;
+    }
     .badge-confirmed {
         background-color: #28a745;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 0.5em 0.8em;
     }
-    .badge-pending {
-        background-color: #ffc107;
-        color: #212529;
+    .badge-inactive {
+        background-color: #dc3545;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 0.5em 0.8em;
     }
     .toggle-btn {
         cursor: pointer;
@@ -61,9 +71,15 @@
                 <td>{{ $instructor->account->email }}</td>
                 <td>
                     @if($instructor->confirmation)
-                        <span class="badge badge-confirmed p-2">Confirmed</span>
+                        <span class="badge badge-confirmed">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Active</span>
+                        </span>
                     @else
-                        <span class="badge badge-pending p-2">Pending</span>
+                        <span class="badge badge-inactive">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Inactive</span>
+                        </span>
                     @endif
                 </td>
                 <td>
