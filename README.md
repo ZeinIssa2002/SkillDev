@@ -116,21 +116,17 @@ SkillDev/
 └── README.md
 
 🎥 Project Demo Videos
-
-Explore SkillDev's main features through these demonstration videos:
-
-Feature	Demo
-Admin Dashboard	Watch Video
-Course Management	Watch Video
-Instructor Profile	Watch Video
-User Registration	Watch Video
-Friends & Chat	Watch Video
-Instructor Approval	Watch Video
-Instructor Rating & Chat	Watch Video
-Website Feedback	Watch Video
-Course Interaction	Watch Video
-User Profile	Watch Video
-
+Feature	Watch	Download
+Admin Dashboard	▶ Watch	⬇ Download
+Course Management	▶ Watch	⬇ Download
+Instructor Profile	▶ Watch	⬇ Download
+User Registration	▶ Watch	⬇ Download
+Friends & Chat	▶ Watch	⬇ Download
+Instructor Approval	▶ Watch	⬇ Download
+Instructor Rating & Chat	▶ Watch	⬇ Download
+Website Feedback	▶ Watch	⬇ Download
+Course Interaction	▶ Watch	⬇ Download
+User Profile	▶ Watch	⬇ Download
 
 If you discover a security vulnerability, please report it responsibly to the repository owner.
 
