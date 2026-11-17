@@ -117,20 +117,30 @@ SkillDev/
 
 
 
+
 ## 🎥 Project Demo Videos
 
 Click on any video to view or download it.
 
-1. [Download Admin.mp4](./Admin.mp4)
-2. [Download Course Cards - instructor + comment + report + feedback.mp4](<./Course Cards - instructor + comment + report + feedback.mp4>)
-3. [Download Instructor profile.mp4](./Instructor%20profile.mp4)
-4. [Download Register.mp4](./Register.mp4)
-5. [Download accept friend + chat + hidden profile display.mp4](<./accept friend + chat + hidden profile display.mp4>)
-6. [Download accept instructor by admin.mp4](./accept%20instructor%20by%20admin.mp4)
-7. [Download rate instructor + show profile + add friend + chat.mp4](<./rate instructor + show profile + add friend + chat.mp4>)
-8. [Download site feedback and rating.mp4](./site%20feedback%20and%20rating.mp4)
-9. [Download user - fav_ apply _ comment _ rate course _ show course.mp4](<./user - fav_ apply _ comment _ rate course _ show course.mp4>)
-10. [Download user profile.mp4](./user%20profile.mp4)
+1. [Download Admin.mp4](./VideosDemo/Admin.mp4)
+
+2. [Download Course Cards - instructor + comment + report + feedback.mp4](<./VideosDemo/Course Cards - instructor + comment + report + feedback.mp4>)
+
+3. [Download Instructor profile.mp4](./VideosDemo/Instructor%20profile.mp4)
+
+4. [Download Register.mp4](./VideosDemo/Register.mp4)
+
+5. [Download accept friend + chat + hidden profile display.mp4](<./VideosDemo/accept friend + chat + hidden profile display.mp4>)
+
+6. [Download accept instructor by admin.mp4](./VideosDemo/accept%20instructor%20by%20admin.mp4)
+
+7. [Download rate instructor + show profile + add friend + chat.mp4](<./VideosDemo/rate instructor + show profile + add friend + chat.mp4>)
+
+8. [Download site feedback and rating.mp4](./VideosDemo/site%20feedback%20and%20rating.mp4)
+
+9. [Download user - fav_ apply _ comment _ rate course _ show course.mp4](<./VideosDemo/user - fav_ apply _ comment _ rate course _ show course.mp4>)
+
+10. [Download user profile.mp4](./VideosDemo/user%20profile.mp4)
 
 
 
