@@ -115,18 +115,22 @@ SkillDev/
 ├── vite.config.js
 └── README.md
 
-🎥 Project Demo Videos
-Feature	Watch	Download
-Admin Dashboard	▶ Watch	⬇ Download
-Course Management	▶ Watch	⬇ Download
-Instructor Profile	▶ Watch	⬇ Download
-User Registration	▶ Watch	⬇ Download
-Friends & Chat	▶ Watch	⬇ Download
-Instructor Approval	▶ Watch	⬇ Download
-Instructor Rating & Chat	▶ Watch	⬇ Download
-Website Feedback	▶ Watch	⬇ Download
-Course Interaction	▶ Watch	⬇ Download
-User Profile	▶ Watch	⬇ Download
+
+## 🎬 Project Demo Videos
+
+You can download and watch the project demo videos below:
+
+1. [Admin Demo](VideosDemo/Admin.mp4)
+2. [Course Cards - Instructor, Comment, Report & Feedback](VideosDemo/Course%20Cards%20-%20instructor%20+%20comment%20+%20report%20+%20feedback.mp4)
+3. [Instructor Profile](VideosDemo/Instructor%20profile.mp4)
+4. [Register](VideosDemo/Register.mp4)
+5. [Accept Friend, Chat & Hidden Profile Display](VideosDemo/accept%20friend%20+%20chat%20+%20hidden%20profile%20display.mp4)
+6. [Accept Instructor by Admin](VideosDemo/accept%20instructor%20by%20admin.mp4)
+7. [Rate Instructor, Show Profile, Add Friend & Chat](VideosDemo/rate%20instructor%20+%20show%20profile%20+%20add%20friend%20+%20chat.mp4)
+8. [Site Feedback and Rating](VideosDemo/site%20feedback%20and%20rating.mp4)
+9. [User Features Demo](VideosDemo/user%20-%20fav%20_%20apply%20_%20comment%20_%20rate%20course%20_%20show%20course.mp4)
+10. [User Profile](VideosDemo/user%20profile.mp4)
+
 
 If you discover a security vulnerability, please report it responsibly to the repository owner.
 
