@@ -115,23 +115,22 @@ SkillDev/
 ├── vite.config.js
 └── README.md
 
-🚀 Future Improvements
-Expand learning analytics and progress reports.
-Improve course recommendation features.
-Enhance the real-time communication experience.
-Add more interactive learning tools.
-Improve accessibility and responsive design.
-Introduce additional learning and assessment features.
-🤝 Contributing
+🎥 Project Demo Videos
 
-Contributions, suggestions, and improvements are welcome.
+Explore SkillDev's main features through these demonstration videos:
 
-Fork the repository.
-Create a new feature branch.
-Commit your changes.
-Push your branch.
-Open a Pull Request.
-🔒 Security
+Feature	Demo
+Admin Dashboard	Watch Video
+Course Management	Watch Video
+Instructor Profile	Watch Video
+User Registration	Watch Video
+Friends & Chat	Watch Video
+Instructor Approval	Watch Video
+Instructor Rating & Chat	Watch Video
+Website Feedback	Watch Video
+Course Interaction	Watch Video
+User Profile	Watch Video
+
 
 If you discover a security vulnerability, please report it responsibly to the repository owner.
 
