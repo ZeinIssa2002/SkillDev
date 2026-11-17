@@ -116,20 +116,22 @@ SkillDev/
 └── README.md
 
 
-## 🎬 Project Demo Videos
 
-You can download and watch the project demo videos below:
+## 🎥 Project Demo Videos
 
-1. [Admin Demo](VideosDemo/Admin.mp4)
-2. [Course Cards - Instructor, Comment, Report & Feedback](VideosDemo/Course%20Cards%20-%20instructor%20+%20comment%20+%20report%20+%20feedback.mp4)
-3. [Instructor Profile](VideosDemo/Instructor%20profile.mp4)
-4. [Register](VideosDemo/Register.mp4)
-5. [Accept Friend, Chat & Hidden Profile Display](VideosDemo/accept%20friend%20+%20chat%20+%20hidden%20profile%20display.mp4)
-6. [Accept Instructor by Admin](VideosDemo/accept%20instructor%20by%20admin.mp4)
-7. [Rate Instructor, Show Profile, Add Friend & Chat](VideosDemo/rate%20instructor%20+%20show%20profile%20+%20add%20friend%20+%20chat.mp4)
-8. [Site Feedback and Rating](VideosDemo/site%20feedback%20and%20rating.mp4)
-9. [User Features Demo](VideosDemo/user%20-%20fav%20_%20apply%20_%20comment%20_%20rate%20course%20_%20show%20course.mp4)
-10. [User Profile](VideosDemo/user%20profile.mp4)
+Click on any video to view or download it.
+
+1. [Download Admin.mp4](./Admin.mp4)
+2. [Download Course Cards - instructor + comment + report + feedback.mp4](<./Course Cards - instructor + comment + report + feedback.mp4>)
+3. [Download Instructor profile.mp4](./Instructor%20profile.mp4)
+4. [Download Register.mp4](./Register.mp4)
+5. [Download accept friend + chat + hidden profile display.mp4](<./accept friend + chat + hidden profile display.mp4>)
+6. [Download accept instructor by admin.mp4](./accept%20instructor%20by%20admin.mp4)
+7. [Download rate instructor + show profile + add friend + chat.mp4](<./rate instructor + show profile + add friend + chat.mp4>)
+8. [Download site feedback and rating.mp4](./site%20feedback%20and%20rating.mp4)
+9. [Download user - fav_ apply _ comment _ rate course _ show course.mp4](<./user - fav_ apply _ comment _ rate course _ show course.mp4>)
+10. [Download user profile.mp4](./user%20profile.mp4)
+
 
 
 If you discover a security vulnerability, please report it responsibly to the repository owner.
